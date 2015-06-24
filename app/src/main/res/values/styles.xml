@@ -4,5 +4,25 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
-
+    <declare-styleable name="SlidingCard">
+        <attr name="sc_slidingMode">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+            <enum name="leftRight" value="2" />
+        </attr>
+        <attr name="sc_touchMode">
+            <enum name="none" value="0" />
+            <enum name="margin" value="1" />
+            <enum name="fullscreen" value="2" />
+        </attr>
+        <attr name="sc_viewContent" format="reference" />
+        <attr name="sc_leftShadowDrawable" format="reference" />
+        <attr name="sc_leftShadowWidth" format="dimension" />
+        <attr name="sc_rightShadowDrawable" format="reference" />
+        <attr name="sc_rightShadowWidth" format="dimension" />
+        <attr name="sc_leftFadeEnabled" format="boolean" />
+        <attr name="sc_leftFadeDegree" format="float" />
+        <attr name="sc_rightFadeEnabled" format="boolean" />
+        <attr name="sc_rightFadeDegree" format="float" />
+    </declare-styleable>
 </resources>
