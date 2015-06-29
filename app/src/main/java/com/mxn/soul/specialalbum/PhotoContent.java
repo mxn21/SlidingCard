@@ -39,4 +39,7 @@ public class PhotoContent {
         this.url = url;
         this.title = title;
     }
+
+    public PhotoContent() {
+    }
 }

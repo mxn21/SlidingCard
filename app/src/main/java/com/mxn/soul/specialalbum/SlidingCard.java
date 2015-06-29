@@ -778,9 +778,19 @@ public class SlidingCard extends LinearLayout {
 	}
 	
 	private void initImageLoad(PhotoContent vo,ImageView imageView) {
-        ImageLoader.getInstance().displayImage(vo.getFlashCover(),
-                imageView,
-                ImageLoaderUtil.getDisplayDefaultImageOptions(), ImageLoaderUtil.getImageLoadingListener());
+       switch (Integer.valueOf(vo.getId())){
+           case 1:
+               imageView.setImageResource(R.drawable.img1);
+               break ;
+           case 2:
+               imageView.setImageResource(R.drawable.img2);
+               break ;
+           case 3:
+               imageView.setImageResource(R.drawable.img3);
+               break ;
+
+
+       }
 	}
 
 	public View getContent() {

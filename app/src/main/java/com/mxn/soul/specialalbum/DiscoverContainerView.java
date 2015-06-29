@@ -8,11 +8,9 @@ import android.graphics.PaintFlagsDrawFilter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -251,24 +249,24 @@ public class DiscoverContainerView extends RelativeLayout implements
         super.dispatchDraw(canvas);
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        mPager.requestDisallowInterceptTouchEvent(true);
-        listView.requestDisallowInterceptTouchEvent(true);
-        return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        mPager.requestDisallowInterceptTouchEvent(true);
-        listView.requestDisallowInterceptTouchEvent(true);
-        return super.onInterceptTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        mPager.requestDisallowInterceptTouchEvent(true);
-        listView.requestDisallowInterceptTouchEvent(true);
-        return super.onTouchEvent(event);
-    }
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        mPager.requestDisallowInterceptTouchEvent(true);
+//        listView.requestDisallowInterceptTouchEvent(true);
+//        return super.dispatchTouchEvent(ev);
+//    }
+//
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent ev) {
+//        mPager.requestDisallowInterceptTouchEvent(true);
+//        listView.requestDisallowInterceptTouchEvent(true);
+//        return super.onInterceptTouchEvent(ev);
+//    }
+//
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        mPager.requestDisallowInterceptTouchEvent(true);
+//        listView.requestDisallowInterceptTouchEvent(true);
+//        return super.onTouchEvent(event);
+//    }
 }
