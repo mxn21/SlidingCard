@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
+import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -21,7 +22,7 @@ public class DiscoverContainerView extends RelativeLayout implements
 
     private Activity activity;
 
-    private List<PhotoContent> dataList = new ArrayList<PhotoContent>();
+    private List<PhotoContent> dataList = new ArrayList<>();
 
     private ContainerInterface containerInterface;
 
@@ -55,7 +56,7 @@ public class DiscoverContainerView extends RelativeLayout implements
     }
 
     @Override
-    public void addView(View child) {
+    public void addView(@NonNull View child) {
 
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
@@ -63,7 +64,7 @@ public class DiscoverContainerView extends RelativeLayout implements
         addView(child, 0, layoutParams);
     }
 
-    public void initCardView(Activity activity, List<PhotoContent> dataList) {
+    public void initCardView(final Activity activity, List<PhotoContent> dataList) {
         this.activity = activity;
         this.dataList = dataList;
         if (dataList != null && dataList.size() > 0) {
@@ -100,6 +101,7 @@ public class DiscoverContainerView extends RelativeLayout implements
                     mSlidingCard.setCurrentItem(1, false);
                     mSlidingCard.setOnPageChangeListener(this);
                     addToView(mSlidingCard);
+
                 }
             }
         }
@@ -214,7 +216,7 @@ public class DiscoverContainerView extends RelativeLayout implements
 
     public interface ContainerInterface {
 
-        public void onFeelOperat(int count);
+        void onFeelOperat(int count);
 
     }
 
@@ -242,7 +244,7 @@ public class DiscoverContainerView extends RelativeLayout implements
 
 
     @Override
-    protected void dispatchDraw(Canvas canvas) {
+    protected void dispatchDraw(@NonNull Canvas canvas) {
 
         canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG
                 | Paint.FILTER_BITMAP_FLAG));
@@ -250,7 +252,7 @@ public class DiscoverContainerView extends RelativeLayout implements
     }
 
 //    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
 //        mPager.requestDisallowInterceptTouchEvent(true);
 //        listView.requestDisallowInterceptTouchEvent(true);
 //        return super.dispatchTouchEvent(ev);
@@ -264,7 +266,7 @@ public class DiscoverContainerView extends RelativeLayout implements
 //    }
 //
 //    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
+//    public boolean onTouchEvent(@NonNull MotionEvent event) {
 //        mPager.requestDisallowInterceptTouchEvent(true);
 //        listView.requestDisallowInterceptTouchEvent(true);
 //        return super.onTouchEvent(event);

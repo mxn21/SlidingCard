@@ -774,7 +774,19 @@ public class SlidingCard extends LinearLayout {
 
 	private void initTextView(PhotoContent vo,TextView textView) {
 
-			textView.setText(vo.getTitle()) ;
+        switch (Integer.valueOf(vo.getId())){
+            case 1:
+                textView.setText("当红小花旦越来越惊艳了");
+                break ;
+            case 2:
+                textView.setText("早秋长袖连衣裙刮起了唯美浪漫风");
+                break ;
+            case 3:
+                textView.setText("高品质裙装美照让你一次看过瘾");
+                break ;
+
+
+        }
 	}
 	
 	private void initImageLoad(PhotoContent vo,ImageView imageView) {
