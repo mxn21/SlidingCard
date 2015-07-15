@@ -15,7 +15,6 @@
             android:layout_height="200dp"
             android:layout_margin="20dp"
             android:background="#ffffff"
-            android:padding="5dp"
             android:scaleType="fitXY"
             />
 

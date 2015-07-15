@@ -34,7 +34,6 @@ import android.widget.LinearLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -1478,8 +1477,7 @@ public class SlidingCard extends LinearLayout {
 	@Override
 	protected void dispatchDraw(Canvas canvas) {
 		
-		canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG
-				| Paint.FILTER_BITMAP_FLAG));
+
 		
 		final int count = getChildCount();
 		for (int i = 0; i < count; i++) {
@@ -1562,6 +1560,9 @@ public class SlidingCard extends LinearLayout {
 		return contentView;
 	}
 
-
-
+    @Override
+	protected void onDraw(Canvas canvas) {
+        canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG
+                | Paint.FILTER_BITMAP_FLAG));
+	}
 }
