@@ -2,9 +2,6 @@ package com.mxn.soul.specialalbum;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PaintFlagsDrawFilter;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -243,13 +240,7 @@ public class DiscoverContainerView extends RelativeLayout implements
     }
 
 
-    @Override
-    protected void dispatchDraw(@NonNull Canvas canvas) {
 
-        canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG
-                | Paint.FILTER_BITMAP_FLAG));
-        super.dispatchDraw(canvas);
-    }
 
 //    @Override
 //    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
@@ -272,9 +263,5 @@ public class DiscoverContainerView extends RelativeLayout implements
 //        return super.onTouchEvent(event);
 //    }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG
-                | Paint.FILTER_BITMAP_FLAG));
-    }
+
 }

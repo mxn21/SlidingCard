@@ -28,7 +28,6 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
@@ -787,7 +786,7 @@ public class SlidingCard extends LinearLayout {
         }
 	}
 	
-	private void initImageLoad(PhotoContent vo,ImageView imageView) {
+	private void initImageLoad(PhotoContent vo,SmoothImageView imageView) {
        switch (Integer.valueOf(vo.getId())){
            case 1:
                imageView.setImageResource(R.drawable.img1);
