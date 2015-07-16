@@ -9,11 +9,12 @@
         android:layout_height="wrap_content"
         android:gravity="center" >
 
-        <ImageView
+        <com.mxn.soul.specialalbum.SmoothImageView
             android:id="@+id/user_imageview"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
             android:layout_margin="20dp"
+            android:padding="5dp"
             android:background="#ffffff"
             android:scaleType="fitXY"
             />

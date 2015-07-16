@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -172,7 +171,7 @@ public class SlidingCard extends LinearLayout {
 
 	//private ImageView headShadyImageView;
 
-	private ImageView headImageView;
+	private SmoothImageView headImageView;
 	private TextView headTextView;
 
 	private View contentView;
@@ -755,7 +754,7 @@ public class SlidingCard extends LinearLayout {
 
 
 	public void initCardChildView(PhotoContent userVo) {
-		headImageView = (ImageView) findViewById(R.id.user_imageview);
+		headImageView = (SmoothImageView) findViewById(R.id.user_imageview);
 		headTextView = (TextView) findViewById(R.id.user_text);
 	//	headShadyImageView = (ImageView) findViewById(R.id.user_imageview_shady);
 		contentView = findViewById(R.id.sliding_card_content_view);
@@ -1560,9 +1559,5 @@ public class SlidingCard extends LinearLayout {
 		return contentView;
 	}
 
-    @Override
-	protected void onDraw(Canvas canvas) {
-        canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG
-                | Paint.FILTER_BITMAP_FLAG));
-	}
+
 }
