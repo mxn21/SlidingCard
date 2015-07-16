@@ -40,7 +40,6 @@ public class SmoothImageView extends ImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.p
         canvas.setDrawFilter(pfd);
         super.onDraw(canvas);
     }
