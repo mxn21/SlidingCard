@@ -90,7 +90,7 @@ public class DiscoverContainerView extends RelativeLayout implements
                     if (i == 2) {
                         contentView.setRotation(-3);
                     }
-                    postInvalidate();
+                 //   postInvalidate();
                     //
                     mSlidingCard.setListIndex(i);
                     mSlidingCard
