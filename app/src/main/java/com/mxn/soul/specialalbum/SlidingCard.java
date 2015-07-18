@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -1474,9 +1475,10 @@ public class SlidingCard extends LinearLayout {
 
 	@Override
 	protected void dispatchDraw(Canvas canvas) {
-		
 
-		
+		PaintFlagsDrawFilter pfd = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint
+				.FILTER_BITMAP_FLAG);
+		canvas.setDrawFilter(pfd);
 		final int count = getChildCount();
 		for (int i = 0; i < count; i++) {
 			final View child = getChildAt(i);

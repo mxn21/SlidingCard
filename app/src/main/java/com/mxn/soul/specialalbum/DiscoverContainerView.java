@@ -2,6 +2,9 @@ package com.mxn.soul.specialalbum;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -83,15 +86,14 @@ public class DiscoverContainerView extends RelativeLayout implements
                     // params.rightMargin = i
                     // * getResources().getDimensionPixelSize(
                     // R.dimen.card_item_margin);
-                    // contentView.setLayoutParams(params);
+//                     contentView.setLayoutParams(params);
                     if (i == 1) {
                         contentView.setRotation(4);
                     }
                     if (i == 2) {
                         contentView.setRotation(-3);
                     }
-                 //   postInvalidate();
-                    //
+                    postInvalidate();
                     mSlidingCard.setListIndex(i);
                     mSlidingCard
                             .setSlidingMode(SlidingCard.SLIDINGMODE_LEFT_RIGHT);
