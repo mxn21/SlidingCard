@@ -12,6 +12,7 @@
 需要改进的地方：
 
 1、抗锯齿（做了基本优化，还需改进）
+
 2、支持自定义多张照片
 
 3、滑动动画流畅性需要优化
@@ -26,21 +27,21 @@
 
 解决了锯齿问题。
 
-在SlidingCard的dispatchDraw方法中加入以下代码
+在SlidingCard的dispatchDraw方法中加入以下代码:
 
-        {% highlight java  %}
+```java
         PaintFlagsDrawFilter pfd = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG|Paint
         				.FILTER_BITMAP_FLAG);
         		canvas.setDrawFilter(pfd);
-        {% endhighlight %}
+```
 
 同时加入自定义控件SmoothImageView代替ImageView。在初始化时加入view级别硬件加速（3.0以后版本有效）。
 
-        {% highlight java  %}
+```java
  if(android.os.Build.VERSION.SDK_INT>=11)
         {
             setLayerType(LAYER_TYPE_SOFTWARE, null);
         }
-        {% endhighlight %}
+```
 
 以上两个步骤缺一不可。
