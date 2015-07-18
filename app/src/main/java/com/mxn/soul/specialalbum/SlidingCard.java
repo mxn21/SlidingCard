@@ -1354,7 +1354,6 @@ public class SlidingCard extends LinearLayout {
 				mLastMotionX = MotionEventCompat.getX(ev,
 						findPointerIndex(ev, mActivePointerId));
 			} catch (Exception e) {
-				// ignore.��֪����ν�����ȴ��ȸ�v4����ViewPager�ĸ����޸�
 			}
 			break;
 		}
