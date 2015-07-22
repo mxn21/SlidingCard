@@ -78,7 +78,7 @@ public class SlidingCard extends LinearLayout {
 
 	private boolean mEnabled = true;
 
-	private List<View> mIgnoredViews = new ArrayList<View>();
+	private List<View> mIgnoredViews = new ArrayList<>();
 
 	private int mSlidingMode;
 
@@ -1538,22 +1538,6 @@ public class SlidingCard extends LinearLayout {
 //		}
 	}
 
-	public OnClickListener operatClick = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			switch (v.getId()) {
-//			case R.id.feel_imageview:
-//				arrowScroll(FOCUS_LEFT);
-//				break;
-//			case R.id.nofeel_imageview:
-//				arrowScroll(FOCUS_RIGHT);
-//				break;
-			default:
-				break;
-			}
-		}
-	};
 
 	public View getContentView() {
 		return contentView;

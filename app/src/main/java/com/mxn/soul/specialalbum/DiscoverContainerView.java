@@ -2,21 +2,18 @@ package com.mxn.soul.specialalbum;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PaintFlagsDrawFilter;
-import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ *
+ */
 public class DiscoverContainerView extends RelativeLayout implements
         SlidingCard.OnPageChangeListener {
 
@@ -28,17 +25,14 @@ public class DiscoverContainerView extends RelativeLayout implements
 
     private int count = 0;
 
-    private ViewPager mPager;
-    private ListView listView;
+    //如果放在ViewPager或者ListView中需要解决滑动冲突
+//    private ViewPager mPager;
+//    private ListView listView;
 
-
-
-    public void setPagerAndListView(ViewPager mPager,ListView listView) {
-        this.mPager = mPager;
-        this.listView = listView;
-    }
-
-
+//    public void setPagerAndListView(ViewPager mPager, ListView listView) {
+//        this.mPager = mPager;
+//        this.listView = listView;
+//    }
 
     public DiscoverContainerView(Context context) {
         super(context);
@@ -49,15 +43,6 @@ public class DiscoverContainerView extends RelativeLayout implements
     }
 
     public void addToView(View child) {
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
-        addView(child, 0, layoutParams);
-    }
-
-    @Override
-    public void addView(@NonNull View child) {
-
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
@@ -75,18 +60,6 @@ public class DiscoverContainerView extends RelativeLayout implements
                     mSlidingCard.setContent(R.layout.sliding_card_item);
                     mSlidingCard.setUserVo(userVo);
                     View contentView = mSlidingCard.getContentView();
-                    // LayoutParams params = new LayoutParams(
-                    // contentView.getLayoutParams());
-                    // params.topMargin = (i - 1)
-                    // * getResources().getDimensionPixelSize(
-                    // R.dimen.card_item_margin);
-                    // params.leftMargin = i
-                    // * getResources().getDimensionPixelSize(
-                    // R.dimen.card_item_margin);
-                    // params.rightMargin = i
-                    // * getResources().getDimensionPixelSize(
-                    // R.dimen.card_item_margin);
-//                     contentView.setLayoutParams(params);
                     if (i == 1) {
                         contentView.setRotation(4);
                     }
@@ -169,22 +142,11 @@ public class DiscoverContainerView extends RelativeLayout implements
                 mSlidingCard.setUserVo(userVo);
                 View contentView = mSlidingCard.getContentView();
 
-//				 LayoutParams params = new LayoutParams(
-//				 contentView.getLayoutParams());
-//				 params.topMargin = 2 * getResources().getDimensionPixelSize(
-//				 R.dimen.card_item_margin);
-//				 params.leftMargin = 2 * getResources().getDimensionPixelSize(
-//				 R.dimen.card_item_margin);
-//				 params.rightMargin = 2 *
-//				 getResources().getDimensionPixelSize(
-//				 R.dimen.card_item_margin);
-//				 contentView.setLayoutParams(params);
-
                 setRotation(contentView);
                 mSlidingCard.setSlidingMode(SlidingCard.SLIDINGMODE_LEFT_RIGHT);
                 mSlidingCard.setCurrentItem(1, false);
                 mSlidingCard.setOnPageChangeListener(this);
-                addView(mSlidingCard);
+                addToView(mSlidingCard);
             }
 //			if (containerInterface != null) {
 //				dataList.remove(0);
@@ -219,9 +181,6 @@ public class DiscoverContainerView extends RelativeLayout implements
 
     }
 
-    public ContainerInterface getContainerInterface() {
-        return containerInterface;
-    }
 
     public void setContainerInterface(ContainerInterface containerInterface) {
         this.containerInterface = containerInterface;
@@ -242,8 +201,7 @@ public class DiscoverContainerView extends RelativeLayout implements
     }
 
 
-
-
+    //如果放在ViewPager或者ListView中需要重写下面三个方法解决滑动冲突
 //    @Override
 //    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
 //        mPager.requestDisallowInterceptTouchEvent(true);
