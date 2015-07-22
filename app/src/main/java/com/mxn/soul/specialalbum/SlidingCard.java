@@ -1,7 +1,6 @@
 package com.mxn.soul.specialalbum;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -251,19 +250,8 @@ public class SlidingCard extends LinearLayout {
     public SlidingCard(Context context, AttributeSet attrs) {
         super(context, attrs);
         initSlidingCard();
+        setContent(new FrameLayout(context));
 
-        TypedArray ta = context.obtainStyledAttributes(attrs,
-                R.styleable.SlidingCard);
-
-        int viewContent = ta.getResourceId(
-                R.styleable.SlidingCard_sc_viewContent, -1);
-        if (viewContent != -1) {
-            setContent(viewContent);
-        } else {
-            setContent(new FrameLayout(context));
-        }
-
-        ta.recycle();
     }
 
     void initSlidingCard() {
@@ -379,9 +367,7 @@ public class SlidingCard extends LinearLayout {
         }
     }
 
-    public int getScrollState() {
-        return mScrollState;
-    }
+
 
     private void completeScroll() {
         boolean needPopulate = mScrolling;
@@ -490,14 +476,6 @@ public class SlidingCard extends LinearLayout {
         invalidate();
     }
 
-    void scrollToPx(int x, int y) {
-        int sx = getScrollX();
-        int sy = getScrollY();
-        int dx = x - sx;
-        int dy = y - sy;
-        scrollTo(x, y);
-        invalidate();
-    }
 
     void setCurrentItemInternal(int item, boolean smoothScroll, boolean always) {
         setCurrentItemInternal(item, smoothScroll, always, 0);
@@ -511,7 +489,6 @@ public class SlidingCard extends LinearLayout {
         }
 
         item = getTargetPage(item);
-
         final boolean dispatchSelected = mCurItem != item;
         mPrevItem = mCurItem;
         mCurItem = item;
@@ -532,9 +509,7 @@ public class SlidingCard extends LinearLayout {
     }
 
     int getTargetPage(int page) {
-
         page = (page > 1) ? 2 : ((page < 1) ? 0 : page);
-
         return page;
 
     }
@@ -552,32 +527,10 @@ public class SlidingCard extends LinearLayout {
         return 0;
     }
 
-    public void setDefaultItem(int defaultItem) {
-        mCurItem = defaultItem;
-    }
 
-    public void resetItemAsDefault() {
-        mPrevItem = DEFAULT_ITEM;
-        mCurItem = DEFAULT_ITEM;
-        setScrollingCacheEnabled(false);
-        mScroller.abortAnimation();
-        mScrollState = SCROLL_STATE_IDLE;
-        final int destX = getDestScrollX(DEFAULT_ITEM);
-        scrollTo(destX, 0);
-        mScrolling = false;
-        setVisibility(View.VISIBLE);
-    }
-
-    public void setCurrentItem(int item) {
-        setCurrentItemInternal(item, true, false);
-    }
 
     public void setCurrentItem(int item, boolean smoothScroll) {
         setCurrentItemInternal(item, smoothScroll, false);
-    }
-
-    public int getCurrentItem() {
-        return mCurItem;
     }
 
 
@@ -615,13 +568,7 @@ public class SlidingCard extends LinearLayout {
     public void initCardChildView(PhotoContent userVo) {
         headImageView = (SmoothImageView) findViewById(R.id.user_imageview);
         headTextView = (TextView) findViewById(R.id.user_text);
-        //	headShadyImageView = (ImageView) findViewById(R.id.user_imageview_shady);
         contentView = findViewById(R.id.sliding_card_content_view);
-        //	headShadyImageView.setAlpha(0);
-        //	Drawable drawable = headShadyImageView.getBackground();
-//		if (drawable != null) {
-//			drawable.setAlpha(0);
-//		}
         if (userVo != null) {
             initImageLoad(userVo, headImageView);
             initTextView(userVo, headTextView);
