@@ -98,9 +98,7 @@ public class DiscoverContainerView extends RelativeLayout implements
             positionOffset = 1f;
         }
 
-        if (v != null) {
-            v.setUserImageShady(Math.abs(positionOffset));
-        }
+
         SlidingCard slidingCard = getNextView();
         if (slidingCard != null) {
             if (Math.abs(positionOffsetPixels) != 0) {

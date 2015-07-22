@@ -123,16 +123,10 @@ public class SlidingCard extends LinearLayout {
 
     private int listIndex;
 
-    //private ImageView headShadyImageView;
-
     private SmoothImageView headImageView;
     private TextView headTextView;
 
     private View contentView;
-
-    public int getListIndex() {
-        return listIndex;
-    }
 
     public void setListIndex(int listIndex) {
         this.listIndex = listIndex;
@@ -213,35 +207,6 @@ public class SlidingCard extends LinearLayout {
 
     }
 
-    /**
-     * Simple implementation of the {@link OnPageChangeListener} interface with
-     * stub implementations of each method. Extend this if you do not intend to
-     * override every method of {@link OnPageChangeListener}.
-     */
-    public static class SimpleOnPageChangeListener implements
-            OnPageChangeListener {
-
-        public void onPageScrolled(SlidingCard v, int position,
-                                   float positionOffset, int positionOffsetPixels) {
-            // This space for rent
-        }
-
-        public void onPageSelected(SlidingCard v, int prevPosition,
-                                   int curPosition) {
-            // This space for rent
-        }
-
-        @Override
-        public void onPageSelectedAfterAnimation(SlidingCard v,
-                                                 int prevPosition, int curPosition) {
-            // This space for rent
-        }
-
-        public void onPageScrollStateChanged(SlidingCard v, int state) {
-            // This space for rent
-        }
-
-    }
 
     public SlidingCard(Context context) {
         this(context, null);
@@ -780,22 +745,12 @@ public class SlidingCard extends LinearLayout {
         View nextFocused = FocusFinder.getInstance().findNextFocus(this,
                 currentFocused, direction);
         if (nextFocused != null && nextFocused != currentFocused) {
-            if (direction == View.FOCUS_LEFT) {
+
                 handled = nextFocused.requestFocus();
-            } else if (direction == View.FOCUS_RIGHT) {
-                if (currentFocused != null
-                        && nextFocused.getLeft() <= currentFocused.getLeft()) {
-                    handled = pageRight();
-                } else {
-                    handled = nextFocused.requestFocus();
-                }
-            }
-        } else if (direction == FOCUS_LEFT || direction == FOCUS_BACKWARD) {
+
+        } else if ( direction == FOCUS_BACKWARD) {
             // Trying to move left and nothing there; try to page.
-            handled = pageLeft();
-        } else if (direction == FOCUS_RIGHT || direction == FOCUS_FORWARD) {
-            // Trying to move right and nothing there; try to page.
-            handled = pageRight();
+            handled = pageNext();
         }
         if (handled) {
             playSoundEffect(SoundEffectConstants
@@ -804,7 +759,7 @@ public class SlidingCard extends LinearLayout {
         return handled;
     }
 
-    boolean pageLeft() {
+    boolean pageNext() {
         if (mCurItem > 0) {
             setCurrentItem(mCurItem - 1, true);
             return true;
@@ -812,13 +767,7 @@ public class SlidingCard extends LinearLayout {
         return false;
     }
 
-    boolean pageRight() {
-        if (mCurItem <= 1) {
-            setCurrentItem(mCurItem + 1, true);
-            return true;
-        }
-        return false;
-    }
+
 
     private void onSecondaryPointerUp(MotionEvent ev) {
         if (DEBUG)
@@ -1037,29 +986,6 @@ public class SlidingCard extends LinearLayout {
     public void setUserVo(PhotoContent photoVo) {
         this.photoVo = photoVo;
         initCardChildView(photoVo);
-    }
-
-    public void setUserImageShady(float offset) {
-        if (offset >= 1) {
-            offset = 0;
-        }
-
-        float imageAlpha = 0;
-        if (offset > 0) {
-            imageAlpha = 0.5f + offset;
-            if (imageAlpha > 1f) {
-                imageAlpha = 1;
-            }
-        }
-//		headShadyImageView.setAlpha((int) (255 * imageAlpha));
-//		Drawable drawable = headShadyImageView.getBackground();
-//		if (drawable != null) {
-//			int bgAlpha = (int) (255 * offset);
-//			if (bgAlpha > 0 && bgAlpha < 160) {
-//				bgAlpha = 40 + bgAlpha;
-//			}
-//			drawable.setAlpha(bgAlpha);
-//		}
     }
 
 
