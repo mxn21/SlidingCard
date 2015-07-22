@@ -68,8 +68,6 @@ public class DiscoverContainerView extends RelativeLayout implements
                     }
                     postInvalidate();
                     mSlidingCard.setListIndex(i);
-                    mSlidingCard
-                            .setSlidingMode(SlidingCard.SLIDINGMODE_LEFT_RIGHT);
                     mSlidingCard.setCurrentItem(1, false);
                     mSlidingCard.setOnPageChangeListener(this);
                     addToView(mSlidingCard);
@@ -143,7 +141,6 @@ public class DiscoverContainerView extends RelativeLayout implements
                 View contentView = mSlidingCard.getContentView();
 
                 setRotation(contentView);
-                mSlidingCard.setSlidingMode(SlidingCard.SLIDINGMODE_LEFT_RIGHT);
                 mSlidingCard.setCurrentItem(1, false);
                 mSlidingCard.setOnPageChangeListener(this);
                 addToView(mSlidingCard);
