@@ -97,8 +97,6 @@ public class DiscoverContainerView extends RelativeLayout implements
         if (positionOffset == 0f) {
             positionOffset = 1f;
         }
-
-
         SlidingCard slidingCard = getNextView();
         if (slidingCard != null) {
             if (Math.abs(positionOffsetPixels) != 0) {
