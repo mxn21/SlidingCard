@@ -3,6 +3,7 @@
     android:layout_height="wrap_content" >
 
     <RelativeLayout
+
         android:id="@+id/sliding_card_content_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

@@ -34,7 +34,7 @@ import java.util.List;
 
 
 /**
- *
+ * 每一个卡片布局
  */
 public class SlidingCard extends LinearLayout {
 
@@ -45,7 +45,7 @@ public class SlidingCard extends LinearLayout {
     private static final boolean USE_CACHE = true;
 
     public static final int MAX_SETTLE_DURATION = 600; // ms
-
+    //最小快速滑动距离
     private static final int MIN_DISTANCE_FOR_FLING = 25; // dips
 
     private PhotoContent photoVo;

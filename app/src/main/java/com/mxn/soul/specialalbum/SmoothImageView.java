@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 /**
  * Created by cys on 15/7/16.
+ * 去锯齿的ImageView
  */
 public class SmoothImageView extends ImageView {
 
