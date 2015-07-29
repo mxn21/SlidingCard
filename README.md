@@ -35,7 +35,9 @@
         		canvas.setDrawFilter(pfd);
 ```
 
-同时加入自定义控件SmoothImageView代替ImageView。在初始化时加入view级别硬件加速（3.0以后版本有效）。
+同时加入自定义控件SmoothImageView代替ImageView。在初始化时关闭view级别硬件加速（3.0以后版本有效）。
+由于硬件加速并不支持所有的2D图形绘制操作，因此对于自定义的View和绘制调用来说，会造成影响。
+对于这个问题，通常是对那些不可见的元素进行了异常或错误的像素渲染。为了避免这种问题，需要关闭硬件加速。
 
 ```java
  if(android.os.Build.VERSION.SDK_INT>=11)
