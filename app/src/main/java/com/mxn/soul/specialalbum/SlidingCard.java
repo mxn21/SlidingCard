@@ -858,9 +858,6 @@ public class SlidingCard extends LinearLayout {
         if (!mIsBeingDragged && !thisTouchAllowed(ev))
             return false;
 
-        // if (!mIsBeingDragged && !mQuickReturn)
-        // return false;
-
         final int action = ev.getAction();
 
         if (mVelocityTracker == null) {
