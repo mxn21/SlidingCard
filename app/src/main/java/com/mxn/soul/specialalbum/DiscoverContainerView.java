@@ -118,9 +118,10 @@ public class DiscoverContainerView extends RelativeLayout implements
                 PhotoContent item = dataList.get(0);
                 dataList.remove(0);
                 addNew(item);
+
                 SlidingCard mSlidingCard = new SlidingCard(activity);
                 mSlidingCard.setContent(R.layout.sliding_card_item);
-                mSlidingCard.setUserVo(item);
+                mSlidingCard.setUserVo(dataList.get(2));
                 View contentView = mSlidingCard.getContentView();
 
                 setRotation(contentView);

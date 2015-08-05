@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -523,50 +524,29 @@ public class SlidingCard extends LinearLayout {
     }
 
 
-    public void initCardChildView(PhotoContent userVo) {
+    public void initCardChildView(PhotoContent vo) {
         headImageView = (SmoothImageView) findViewById(R.id.user_imageview);
         headTextView = (TextView) findViewById(R.id.user_text);
         contentView = findViewById(R.id.sliding_card_content_view);
-        if (userVo != null) {
-            initImageLoad(userVo, headImageView);
-            initTextView(userVo, headTextView);
+        if (vo != null) {
+            headTextView.setText(vo.getTitle());
+            headImageView.setImageResource(getResourceByReflect(vo.getUrl()));
 
         }
     }
-
-    private void initTextView(PhotoContent vo, TextView textView) {
-
-        switch (Integer.valueOf(vo.getId())) {
-            case 1:
-                textView.setText("当红小花旦越来越惊艳了");
-                break;
-            case 2:
-                textView.setText("早秋长袖连衣裙刮起了唯美浪漫风");
-                break;
-            case 3:
-                textView.setText("高品质裙装美照让你一次看过瘾");
-                break;
-
-
+    public int getResourceByReflect(String imageName){
+        Class drawable  =  R.drawable.class;
+        Field field = null;
+        int r_id ;
+        try {
+            field = drawable.getField(imageName);
+            r_id = field.getInt(field.getName());
+        } catch (Exception e) {
+            r_id=R.drawable.img1;
+            Log.e("ERROR", "PICTURE NOT　FOUND！");
         }
+        return r_id;
     }
-
-    private void initImageLoad(PhotoContent vo, SmoothImageView imageView) {
-        switch (Integer.valueOf(vo.getId())) {
-            case 1:
-                imageView.setImageResource(R.drawable.img1);
-                break;
-            case 2:
-                imageView.setImageResource(R.drawable.img2);
-                break;
-            case 3:
-                imageView.setImageResource(R.drawable.img3);
-                break;
-
-
-        }
-    }
-
 
     public boolean isCardClose() {
         return mCurItem == 0 || mCurItem == 2;
@@ -842,19 +822,13 @@ public class SlidingCard extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-
         if (!mEnabled)
             return true;
-
         if (isCardClose())
             return false;
-
         if (!mIsBeingDragged && !thisTouchAllowed(ev))
             return false;
-
-
         final int action = ev.getAction();
-
         if (mVelocityTracker == null) {
             mVelocityTracker = VelocityTracker.obtain();
         }
@@ -971,9 +945,6 @@ public class SlidingCard extends LinearLayout {
         }
     }
 
-    public PhotoContent getUserVo() {
-        return photoVo;
-    }
 
     public void setUserVo(PhotoContent photoVo) {
         this.photoVo = photoVo;
