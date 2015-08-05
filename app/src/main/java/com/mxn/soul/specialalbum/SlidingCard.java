@@ -83,6 +83,7 @@ public class SlidingCard extends LinearLayout {
 
     private int mTouchSlop;
 
+    //手指刚按下的初始点
     private float mInitialMotionX;
 
     // variables for drawing
@@ -142,7 +143,7 @@ public class SlidingCard extends LinearLayout {
     public static final int SCROLL_STATE_IDLE = 0;
 
     /**
-     * Indicates that the pager is currently being dragged by the user.
+     * 表示正在被拖动
      */
     public static final int SCROLL_STATE_DRAGGING = 1;
 
@@ -319,11 +320,9 @@ public class SlidingCard extends LinearLayout {
     }
 
     private void setScrollState(int newState) {
-
         if (mScrollState == newState) {
             return;
         }
-
         mScrollState = newState;
         disableLayers();
         if (mOnPageChangeListener != null) {
@@ -968,6 +967,7 @@ public class SlidingCard extends LinearLayout {
 
 
     private void disableLayers() {
+        //view按一般方式绘制，不使用离屏缓冲．这是默认的行为
         ViewCompat.setLayerType(this, ViewCompat.LAYER_TYPE_NONE, null);
         final int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {

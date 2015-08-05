@@ -126,8 +126,10 @@ public class DiscoverContainerView extends RelativeLayout implements
             removeViewAt(getChildCount() - 1);
             //UserVo userVo = dataList.get(curPosition);
             if (containerInterface != null) {
+                PhotoContent item = dataList.get(0);
                 dataList.remove(0);
-                containerInterface.onFeelOperat(count);
+              //  containerInterface.onFeelOperat(count);
+                addNew(item);
             }
             PhotoContent userVo = dataList.get(curPosition);
             if (userVo != null) {
@@ -142,7 +144,7 @@ public class DiscoverContainerView extends RelativeLayout implements
                 addToView(mSlidingCard);
             }
 //			if (containerInterface != null) {
-//				dataList.remove(0);
+//				dataList.wremove(0);
 //				containerInterface.onFeelOperat(count);
 //			}
             Log.e("test", "onPageSelectedAfterAnimation:" + curPosition + ","
