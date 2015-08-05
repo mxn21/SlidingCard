@@ -90,14 +90,14 @@ public class SlidingCard extends LinearLayout {
     private float mScrollX = 0.0f;
 
     /**
-     * Position of the last motion event.
+     *最后一次motion event的位置.
      */
     private float mLastMotionX;
 
     private float mLastMotionY;
 
     /**
-     * ID of the active pointer. This is used to retain consistency during
+     * 活动的触摸pointer的ID. This is used to retain consistency during
      * drags/flings if multiple pointers are used.
      */
     protected int mActivePointerId = INVALID_POINTER;
@@ -109,7 +109,7 @@ public class SlidingCard extends LinearLayout {
     private static final int INVALID_POINTER = -1;
 
     /**
-     * Determines speed during touch scrolling
+     * 确定滚动的速度
      */
     protected VelocityTracker mVelocityTracker;
 
@@ -137,8 +137,7 @@ public class SlidingCard extends LinearLayout {
     }
 
     /**
-     * Indicates that the pager is in an idle, settled state. The current page
-     * is fully in view and no animation is in progress.
+     * 空闲状态，view完整显示，动画处于执行完毕状态
      */
     public static final int SCROLL_STATE_IDLE = 0;
 
@@ -148,15 +147,14 @@ public class SlidingCard extends LinearLayout {
     public static final int SCROLL_STATE_DRAGGING = 1;
 
     /**
-     * Indicates that the pager is in the process of settling to a final
-     * position.
+     * 表示view正在自动移动到最终的位置
      */
     public static final int SCROLL_STATE_SETTLING = 2;
 
     private int mScrollState = SCROLL_STATE_IDLE;
 
     /**
-     * Callback interface for responding to changing state of the selected page.
+     * 滑动的回调接口
      */
     public interface OnPageChangeListener {
 
@@ -194,11 +192,8 @@ public class SlidingCard extends LinearLayout {
                                                  int prevPosition, int curPosition);
 
         /**
-         * Called when the scroll state changes. Useful for discovering when the
-         * user begins dragging, when the pager is automatically settling to the
-         * current page, or when it is fully stopped/idle.
-         *
-         * @param state The new scroll state.
+         * 当滑动状态改变时调用，用来观察：拖动状态，自动移动状态，和停止状态。
+         * @param state 滑动状态.
          * @see SlidingCard#SCROLL_STATE_IDLE
          * @see SlidingCard#SCROLL_STATE_DRAGGING
          * @see SlidingCard#SCROLL_STATE_SETTLING
