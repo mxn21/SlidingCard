@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends Activity implements DiscoverContainerView.ContainerInterface {
+public class MainActivity extends Activity {
 
     private DiscoverContainerView contentView;
 
@@ -16,20 +16,8 @@ public class MainActivity extends Activity implements DiscoverContainerView.Cont
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         contentView = (DiscoverContainerView) findViewById(R.id.contentview);
-
         initData() ;
-
     }
-
-
-    @Override
-    public void onFeelOperat(int count) {
-        PhotoContent photoContent = new PhotoContent();
-        photoContent.setId(String.valueOf(count%3 +1)) ;
-        contentView.addNew(photoContent);
-
-    }
-
 
     private void initData(){
         List<PhotoContent> dataList = new ArrayList<>();
@@ -43,8 +31,6 @@ public class MainActivity extends Activity implements DiscoverContainerView.Cont
         dataList.add(photoContent2) ;
         dataList.add(photoContent3) ;
         contentView.initCardView(MainActivity.this,dataList);
-        contentView.setContainerInterface(this) ;
-
-
     }
+
 }

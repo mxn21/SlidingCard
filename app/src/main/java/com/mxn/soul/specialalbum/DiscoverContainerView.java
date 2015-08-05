@@ -12,7 +12,7 @@ import java.util.List;
 
 
 /**
- *
+ *一组照片的布局
  */
 public class DiscoverContainerView extends RelativeLayout implements
         SlidingCard.OnPageChangeListener {
@@ -20,8 +20,6 @@ public class DiscoverContainerView extends RelativeLayout implements
     private Activity activity;
 
     private List<PhotoContent> dataList = new ArrayList<>();
-
-    private ContainerInterface containerInterface;
 
     private int count = 0;
 
@@ -77,13 +75,6 @@ public class DiscoverContainerView extends RelativeLayout implements
         }
     }
 
-    public SlidingCard getCurrentView() {
-        if (getChildCount() > 0) {
-            return (SlidingCard) getChildAt(getChildCount() - 1);
-        }
-        return null;
-    }
-
     public SlidingCard getNextView() {
         if (getChildCount() - 1 > 0) {
             return (SlidingCard) getChildAt(getChildCount() - 2);
@@ -124,15 +115,9 @@ public class DiscoverContainerView extends RelativeLayout implements
                                              int curPosition) {
         if (activity != null) {
             removeViewAt(getChildCount() - 1);
-            //UserVo userVo = dataList.get(curPosition);
-            if (containerInterface != null) {
                 PhotoContent item = dataList.get(0);
                 dataList.remove(0);
-              //  containerInterface.onFeelOperat(count);
                 addNew(item);
-          //  }
-            //PhotoContent userVo = dataList.get(curPosition);
-            //if (item != null) {
                 SlidingCard mSlidingCard = new SlidingCard(activity);
                 mSlidingCard.setContent(R.layout.sliding_card_item);
                 mSlidingCard.setUserVo(item);
@@ -142,11 +127,7 @@ public class DiscoverContainerView extends RelativeLayout implements
                 mSlidingCard.setCurrentItem(1, false);
                 mSlidingCard.setOnPageChangeListener(this);
                 addToView(mSlidingCard);
-            }
-//			if (containerInterface != null) {
-//				dataList.wremove(0);
-//				containerInterface.onFeelOperat(count);
-//			}
+
             Log.e("test", "onPageSelectedAfterAnimation:" + curPosition + ","
                     + getChildCount());
         }
@@ -162,24 +143,6 @@ public class DiscoverContainerView extends RelativeLayout implements
         Log.e("test", "state change:" + state);
     }
 
-    public List<PhotoContent> getDataList() {
-        return dataList;
-    }
-
-    public void setDataList(List<PhotoContent> dataList) {
-        this.dataList = dataList;
-    }
-
-    public interface ContainerInterface {
-
-        void onFeelOperat(int count);
-
-    }
-
-
-    public void setContainerInterface(ContainerInterface containerInterface) {
-        this.containerInterface = containerInterface;
-    }
 
     public void addNew(PhotoContent u) {
         dataList.add(u);
