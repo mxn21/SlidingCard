@@ -50,6 +50,11 @@ public class DiscoverContainerView extends RelativeLayout implements
     public void initCardView(final Activity activity, List<PhotoContent> dataList) {
         this.activity = activity;
         this.dataList = dataList;
+        if(android.os.Build.VERSION.SDK_INT>=11)
+        {
+            setLayerType(LAYER_TYPE_SOFTWARE, null);
+        }
+
         if (dataList != null && dataList.size() > 0) {
             for (int i = 0; i < 3; i++) {
                 PhotoContent userVo = dataList.get(i);
@@ -86,6 +91,7 @@ public class DiscoverContainerView extends RelativeLayout implements
         if (positionOffset == 0f) {
             positionOffset = 1f;
         }
+        //最上面一张滑动时，下面一张要跟着小距离移动
         SlidingCard slidingCard = getNextView();
         if (slidingCard != null) {
             if (Math.abs(positionOffsetPixels) != 0) {
@@ -102,7 +108,7 @@ public class DiscoverContainerView extends RelativeLayout implements
                         getResources()
                                 .getDimensionPixelSize(R.dimen.card_item_margin));
                 contentView.setLayoutParams(params);
-                contentView.setRotation(0);
+//                contentView.setRotation(0);
                 postInvalidate();
             }
         }

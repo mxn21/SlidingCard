@@ -396,7 +396,6 @@ public class SlidingCard extends LinearLayout {
      */
     void smoothScrollTo(int x, int y, int velocity) {
         if (getChildCount() == 0) {
-            // Nothing to do.
             setScrollingCacheEnabled(false);
             return;
         }

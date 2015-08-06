@@ -32,7 +32,7 @@ public class SmoothImageView extends ImageView {
     private void initialize() {
         if(android.os.Build.VERSION.SDK_INT>=11)
         {
-           setLayerType(LAYER_TYPE_SOFTWARE, null);
+//           setLayerType(LAYER_TYPE_SOFTWARE, null);
         }
     }
 
