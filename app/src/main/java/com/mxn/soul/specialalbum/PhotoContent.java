@@ -34,12 +34,6 @@ public class PhotoContent {
         this.url = url;
     }
 
-    public PhotoContent(String id, String url, String title) {
-        this.id = id;
-        this.url = url;
-        this.title = title;
-    }
-
     public PhotoContent() {
     }
 }

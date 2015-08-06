@@ -12,7 +12,7 @@ import java.util.List;
 
 
 /**
- *一组照片的布局
+ * 一组照片的布局
  */
 public class DiscoverContainerView extends RelativeLayout implements
         SlidingCard.OnPageChangeListener {
@@ -64,12 +64,10 @@ public class DiscoverContainerView extends RelativeLayout implements
                     if (i == 2) {
                         contentView.setRotation(-3);
                     }
-//                    postInvalidate();
                     mSlidingCard.setListIndex(i);
                     mSlidingCard.setCurrentItem(1, false);
                     mSlidingCard.setOnPageChangeListener(this);
                     addToView(mSlidingCard);
-
                 }
             }
         }
@@ -115,19 +113,19 @@ public class DiscoverContainerView extends RelativeLayout implements
                                              int curPosition) {
         if (activity != null) {
             removeViewAt(getChildCount() - 1);
-                PhotoContent item = dataList.get(0);
-                dataList.remove(0);
-                addNew(item);
+            System.gc();
+            PhotoContent item = dataList.get(0);
+            dataList.remove(0);
+            dataList.add(item);
+            SlidingCard mSlidingCard = new SlidingCard(activity);
+            mSlidingCard.setContent(R.layout.sliding_card_item);
+            mSlidingCard.setUserVo(dataList.get(2));
+            View contentView = mSlidingCard.getContentView();
 
-                SlidingCard mSlidingCard = new SlidingCard(activity);
-                mSlidingCard.setContent(R.layout.sliding_card_item);
-                mSlidingCard.setUserVo(dataList.get(2));
-                View contentView = mSlidingCard.getContentView();
-
-                setRotation(contentView);
-                mSlidingCard.setCurrentItem(1, false);
-                mSlidingCard.setOnPageChangeListener(this);
-                addToView(mSlidingCard);
+            setRotation(contentView);
+            mSlidingCard.setCurrentItem(1, false);
+            mSlidingCard.setOnPageChangeListener(this);
+            addToView(mSlidingCard);
 
             Log.e("test", "onPageSelectedAfterAnimation:" + curPosition + ","
                     + getChildCount());
@@ -144,11 +142,6 @@ public class DiscoverContainerView extends RelativeLayout implements
         Log.e("test", "state change:" + state);
     }
 
-
-    public void addNew(PhotoContent u) {
-        dataList.add(u);
-    }
-
     private void setRotation(View v) {
         if (count % 3 == 1) {
             v.setRotation(4);
@@ -158,8 +151,6 @@ public class DiscoverContainerView extends RelativeLayout implements
         postInvalidate();
         count++;
     }
-
-
     //如果放在ViewPager或者ListView中需要重写下面三个方法解决滑动冲突
 //    @Override
 //    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
@@ -167,20 +158,16 @@ public class DiscoverContainerView extends RelativeLayout implements
 //        listView.requestDisallowInterceptTouchEvent(true);
 //        return super.dispatchTouchEvent(ev);
 //    }
-//
 //    @Override
 //    public boolean onInterceptTouchEvent(MotionEvent ev) {
 //        mPager.requestDisallowInterceptTouchEvent(true);
 //        listView.requestDisallowInterceptTouchEvent(true);
 //        return super.onInterceptTouchEvent(ev);
 //    }
-//
 //    @Override
 //    public boolean onTouchEvent(@NonNull MotionEvent event) {
 //        mPager.requestDisallowInterceptTouchEvent(true);
 //        listView.requestDisallowInterceptTouchEvent(true);
 //        return super.onTouchEvent(event);
 //    }
-
-
 }
