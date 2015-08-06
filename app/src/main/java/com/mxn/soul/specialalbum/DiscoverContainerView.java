@@ -50,33 +50,30 @@ public class DiscoverContainerView extends RelativeLayout implements
     public void initCardView(final Activity activity, List<PhotoContent> dataList) {
         this.activity = activity;
         this.dataList = dataList;
-        if(android.os.Build.VERSION.SDK_INT>=11)
-        {
+        if (android.os.Build.VERSION.SDK_INT >= 11) {
             setLayerType(LAYER_TYPE_SOFTWARE, null);
         }
 
-        if(dataList == null || dataList.size()<3)
-            return ;
+        if (dataList == null || dataList.size() < 3)
+            return;
 
-        if (dataList != null && dataList.size() > 0) {
-            for (int i = 0; i < 3; i++) {
-                PhotoContent userVo = dataList.get(i);
-                if (userVo != null) {
-                    SlidingCard mSlidingCard = new SlidingCard(this.activity);
-                    mSlidingCard.setContent(R.layout.sliding_card_item);
-                    mSlidingCard.setUserVo(userVo);
-                    View contentView = mSlidingCard.getContentView();
-                    if (i == 1) {
-                        contentView.setRotation(4);
-                    }
-                    if (i == 2) {
-                        contentView.setRotation(-3);
-                    }
-                    mSlidingCard.setListIndex(i);
-                    mSlidingCard.setCurrentItem(1, false);
-                    mSlidingCard.setOnPageChangeListener(this);
-                    addToView(mSlidingCard);
+        for (int i = 0; i < 3; i++) {
+            PhotoContent userVo = dataList.get(i);
+            if (userVo != null) {
+                SlidingCard mSlidingCard = new SlidingCard(this.activity);
+                mSlidingCard.setContent(R.layout.sliding_card_item);
+                mSlidingCard.setUserVo(userVo);
+                View contentView = mSlidingCard.getContentView();
+                if (i == 1) {
+                    contentView.setRotation(4);
                 }
+                if (i == 2) {
+                    contentView.setRotation(-3);
+                }
+                mSlidingCard.setListIndex(i);
+                mSlidingCard.setCurrentItem(1, false);
+                mSlidingCard.setOnPageChangeListener(this);
+                addToView(mSlidingCard);
             }
         }
     }
@@ -111,7 +108,7 @@ public class DiscoverContainerView extends RelativeLayout implements
                         getResources()
                                 .getDimensionPixelSize(R.dimen.card_item_margin));
                 contentView.setLayoutParams(params);
-//                contentView.setRotation(0);
+                contentView.setRotation(0);
                 postInvalidate();
             }
         }

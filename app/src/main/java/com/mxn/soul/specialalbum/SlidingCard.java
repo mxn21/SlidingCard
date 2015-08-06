@@ -49,8 +49,6 @@ public class SlidingCard extends LinearLayout {
     //最小快速滑动距离
     private static final int MIN_DISTANCE_FOR_FLING = 25; // dips
 
-    private PhotoContent photoVo;
-
     public static final Interpolator sInterpolator = new Interpolator() {
         public float getInterpolation(float t) {
             t -= 1.0f;
@@ -59,8 +57,6 @@ public class SlidingCard extends LinearLayout {
     };
 
     private boolean mEnabled = true;
-
-    private List<View> mIgnoredViews = new ArrayList<>();
 
     private View mContent;
 
@@ -104,7 +100,7 @@ public class SlidingCard extends LinearLayout {
     protected int mActivePointerId = INVALID_POINTER;
 
     /**
-     * Sentinel value for no current active pointer. Used by
+     * 表示当前没有活动的点
      * {@link #mActivePointerId}.
      */
     private static final int INVALID_POINTER = -1;
@@ -171,7 +167,7 @@ public class SlidingCard extends LinearLayout {
          *                             position.
          * @param positionOffsetPixels Value in pixels indicating the offset from position.
          */
-        public void onPageScrolled(SlidingCard v, int position,
+         void onPageScrolled(SlidingCard v, int position,
                                    float positionOffset, int positionOffsetPixels);
 
         /**
@@ -180,7 +176,7 @@ public class SlidingCard extends LinearLayout {
          * <p/>
          * Position index of the new selected page.
          */
-        public void onPageSelected(SlidingCard v, int prevPosition,
+         void onPageSelected(SlidingCard v, int prevPosition,
                                    int curPosition);
 
         /**
@@ -189,7 +185,7 @@ public class SlidingCard extends LinearLayout {
          * <p/>
          * Position index of the new selected page.
          */
-        public void onPageSelectedAfterAnimation(SlidingCard v,
+         void onPageSelectedAfterAnimation(SlidingCard v,
                                                  int prevPosition, int curPosition);
 
         /**
@@ -199,7 +195,7 @@ public class SlidingCard extends LinearLayout {
          * @see SlidingCard#SCROLL_STATE_DRAGGING
          * @see SlidingCard#SCROLL_STATE_SETTLING
          */
-        public void onPageScrollStateChanged(SlidingCard v, int state);
+         void onPageScrollStateChanged(SlidingCard v, int state);
 
     }
 
@@ -211,7 +207,6 @@ public class SlidingCard extends LinearLayout {
     public SlidingCard(Context context, AttributeSet attrs) {
         super(context, attrs);
         initSlidingCard();
-      //  setContent(new FrameLayout(context));
 
     }
 
@@ -570,25 +565,7 @@ public class SlidingCard extends LinearLayout {
         }
     }
 
-    private boolean isInIgnoredView(MotionEvent ev) {
-        Rect rect = new Rect();
-        for (View v : mIgnoredViews) {
-            getHitRect(v, rect);
-            if (rect.contains((int) ev.getX(), (int) ev.getY()))
-                return true;
-        }
-        return false;
-    }
 
-    private boolean thisTouchAllowed(MotionEvent ev) {
-        int x = (int) (ev.getX() + mScrollX);
-        if (!isCardClose()) {
-
-            return !isInIgnoredView(ev);
-
-        }
-        return false;
-    }
 
     private boolean thisSlideAllowed(float dx) {
         if (!isCardClose()) {
@@ -797,13 +774,9 @@ public class SlidingCard extends LinearLayout {
                 mLastMotionX = mInitialMotionX = ev.getX();
                 mLastMotionY = ev.getY();
                 mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
-                if (thisTouchAllowed(ev)) {
                     completeScroll();
                     mIsBeingDragged = false;
                     mIsUnableToDrag = false;
-                } else {
-                    mIsUnableToDrag = true;
-                }
                 break;
             case MotionEventCompat.ACTION_POINTER_UP:
                 onSecondaryPointerUp(ev);
@@ -825,8 +798,7 @@ public class SlidingCard extends LinearLayout {
             return true;
         if (isCardClose())
             return false;
-        if (!mIsBeingDragged && !thisTouchAllowed(ev))
-            return false;
+
         final int action = ev.getAction();
         if (mVelocityTracker == null) {
             mVelocityTracker = VelocityTracker.obtain();
@@ -946,7 +918,6 @@ public class SlidingCard extends LinearLayout {
 
 
     public void setUserVo(PhotoContent photoVo) {
-        this.photoVo = photoVo;
         initCardChildView(photoVo);
     }
 
