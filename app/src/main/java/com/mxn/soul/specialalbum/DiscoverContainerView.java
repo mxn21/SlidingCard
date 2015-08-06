@@ -55,6 +55,9 @@ public class DiscoverContainerView extends RelativeLayout implements
             setLayerType(LAYER_TYPE_SOFTWARE, null);
         }
 
+        if(dataList == null || dataList.size()<3)
+            return ;
+
         if (dataList != null && dataList.size() > 0) {
             for (int i = 0; i < 3; i++) {
                 PhotoContent userVo = dataList.get(i);
@@ -119,7 +122,6 @@ public class DiscoverContainerView extends RelativeLayout implements
                                              int curPosition) {
         if (activity != null) {
             removeViewAt(getChildCount() - 1);
-            System.gc();
             PhotoContent item = dataList.get(0);
             dataList.remove(0);
             dataList.add(item);
