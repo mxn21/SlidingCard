@@ -70,7 +70,6 @@ public class DiscoverContainerView extends RelativeLayout implements
                 if (i == 2) {
                     contentView.setRotation(-3);
                 }
-                mSlidingCard.setListIndex(i);
                 mSlidingCard.setCurrentItem(1, false);
                 mSlidingCard.setOnPageChangeListener(this);
                 addToView(mSlidingCard);

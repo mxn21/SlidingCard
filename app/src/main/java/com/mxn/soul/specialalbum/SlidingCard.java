@@ -2,11 +2,10 @@ package com.mxn.soul.specialalbum;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.graphics.Rect;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.view.KeyEventCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.VelocityTrackerCompat;
@@ -23,15 +22,13 @@ import android.view.SoundEffectConstants;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewParent;
 import android.view.animation.Interpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -83,11 +80,8 @@ public class SlidingCard extends LinearLayout {
     //手指刚按下的初始点
     private float mInitialMotionX;
 
-    // variables for drawing
-    private float mScrollX = 0.0f;
-
     /**
-     *最后一次motion event的位置.
+     * 最后一次motion event的位置.
      */
     private float mLastMotionX;
 
@@ -118,16 +112,7 @@ public class SlidingCard extends LinearLayout {
 
     private OnPageChangeListener mOnPageChangeListener;
 
-    private int listIndex;
-
-    private SmoothImageView headImageView;
-    private TextView headTextView;
-
     private View contentView;
-
-    public void setListIndex(int listIndex) {
-        this.listIndex = listIndex;
-    }
 
     public void setOnPageChangeListener(OnPageChangeListener listener) {
         mOnPageChangeListener = listener;
@@ -167,8 +152,8 @@ public class SlidingCard extends LinearLayout {
          *                             position.
          * @param positionOffsetPixels Value in pixels indicating the offset from position.
          */
-         void onPageScrolled(SlidingCard v, int position,
-                                   float positionOffset, int positionOffsetPixels);
+        void onPageScrolled(SlidingCard v, int position,
+                            float positionOffset, int positionOffsetPixels);
 
         /**
          * This method will be invoked when a new page becomes selected.
@@ -176,8 +161,8 @@ public class SlidingCard extends LinearLayout {
          * <p/>
          * Position index of the new selected page.
          */
-         void onPageSelected(SlidingCard v, int prevPosition,
-                                   int curPosition);
+        void onPageSelected(SlidingCard v, int prevPosition,
+                            int curPosition);
 
         /**
          * This method will be invoked when a new page becomes selected. after
@@ -185,17 +170,18 @@ public class SlidingCard extends LinearLayout {
          * <p/>
          * Position index of the new selected page.
          */
-         void onPageSelectedAfterAnimation(SlidingCard v,
-                                                 int prevPosition, int curPosition);
+        void onPageSelectedAfterAnimation(SlidingCard v,
+                                          int prevPosition, int curPosition);
 
         /**
          * 当滑动状态改变时调用，用来观察：拖动状态，自动移动状态，和停止状态。
+         *
          * @param state 滑动状态.
          * @see SlidingCard#SCROLL_STATE_IDLE
          * @see SlidingCard#SCROLL_STATE_DRAGGING
          * @see SlidingCard#SCROLL_STATE_SETTLING
          */
-         void onPageScrollStateChanged(SlidingCard v, int state);
+        void onPageScrollStateChanged(SlidingCard v, int state);
 
     }
 
@@ -237,11 +223,9 @@ public class SlidingCard extends LinearLayout {
         int itemHeight = getContext().getResources().getDimensionPixelSize(
                 R.dimen.card_item_height);
         int width = getDefaultSize(0, widthMeasureSpec);
-        int height = getDefaultSize(0, heightMeasureSpec);
         setMeasuredDimension(width, itemHeight);
         final int contentWidth = getChildMeasureSpec(widthMeasureSpec, 0, width);
-        final int contentHeight = getChildMeasureSpec(heightMeasureSpec, 0,
-                height);
+
         mContent.measure(contentWidth, itemHeight);
     }
 
@@ -295,7 +279,6 @@ public class SlidingCard extends LinearLayout {
     @Override
     public void scrollTo(int x, int y) {
         super.scrollTo(x, y);
-        mScrollX = x;
     }
 
     private void pageScrolled(int xpos) {
@@ -320,7 +303,6 @@ public class SlidingCard extends LinearLayout {
             mOnPageChangeListener.onPageScrollStateChanged(this, newState);
         }
     }
-
 
 
     private void completeScroll() {
@@ -355,10 +337,6 @@ public class SlidingCard extends LinearLayout {
                     final View child = getChildAt(i);
                     if (child.getVisibility() != GONE) {
                         child.setDrawingCacheEnabled(enabled);
-                        if (enabled && isLowQuality) {
-                            child.setDrawingCacheBackgroundColor(Color.TRANSPARENT);
-                            child.setDrawingCacheQuality(DRAWING_CACHE_QUALITY_LOW);
-                        }
                     }
                 }
             }
@@ -368,17 +346,7 @@ public class SlidingCard extends LinearLayout {
     float distanceInfluenceForSnapDuration(float f) {
         f -= 0.5f; // center the values about 0.
         f *= 0.3f * Math.PI / 2.0f;
-        return (float) FloatMath.sin(f);
-    }
-
-    /**
-     * Like {@link View#scrollBy}, but scroll smoothly instead of immediately.
-     *
-     * @param x the number of pixels to scroll by on the X axis
-     * @param y the number of pixels to scroll by on the Y axis
-     */
-    void smoothScrollTo(int x, int y) {
-        smoothScrollTo(x, y, 0);
+        return FloatMath.sin(f);
     }
 
     /**
@@ -414,13 +382,12 @@ public class SlidingCard extends LinearLayout {
         final float distance = halfWidth + halfWidth
                 * distanceInfluenceForSnapDuration(distanceRatio);
 
-        int duration = 0;
+        int duration ;
         velocity = Math.abs(velocity);
         if (velocity > 0) {
             duration = 4 * Math.round(1000 * Math.abs(distance / velocity));
         } else {
-            final float pageDelta = (float) Math.abs(dx) / width;
-            duration = (int) ((pageDelta + 1) * 100);
+
             duration = MAX_SETTLE_DURATION;
         }
         duration = Math.min(duration, MAX_SETTLE_DURATION);
@@ -481,14 +448,13 @@ public class SlidingCard extends LinearLayout {
     }
 
 
-
     public void setCurrentItem(int item, boolean smoothScroll) {
         setCurrentItemInternal(item, smoothScroll, false);
     }
 
 
     @Override
-    public void addView(View child) {
+    public void addView(@NonNull View child) {
         try {
             super.removeAllViews();
         } catch (Exception e) {
@@ -500,7 +466,7 @@ public class SlidingCard extends LinearLayout {
     }
 
     @Override
-    public void removeView(View view) {
+    public void removeView(@NonNull View view) {
         try {
             super.removeView(view);
         } catch (Exception e) {
@@ -519,24 +485,25 @@ public class SlidingCard extends LinearLayout {
 
 
     public void initCardChildView(PhotoContent vo) {
-        headImageView = (SmoothImageView) findViewById(R.id.user_imageview);
-        headTextView = (TextView) findViewById(R.id.user_text);
+        ImageView mImageView = (ImageView) findViewById(R.id.user_imageview);
+        TextView mTextView = (TextView) findViewById(R.id.user_text);
         contentView = findViewById(R.id.sliding_card_content_view);
         if (vo != null) {
-            headTextView.setText(vo.getTitle());
-            headImageView.setImageResource(getResourceByReflect(vo.getUrl()));
+            mTextView.setText(vo.getTitle());
+            mImageView.setImageResource(getResourceByReflect(vo.getUrl()));
 
         }
     }
-    public int getResourceByReflect(String imageName){
-        Class drawable  =  R.drawable.class;
-        Field field = null;
-        int r_id ;
+
+    public int getResourceByReflect(String imageName) {
+        Class drawable = R.drawable.class;
+        Field field ;
+        int r_id;
         try {
             field = drawable.getField(imageName);
             r_id = field.getInt(field.getName());
         } catch (Exception e) {
-            r_id=R.drawable.img1;
+            r_id = R.drawable.img1;
             Log.e("ERROR", "PICTURE NOT　FOUND！");
         }
         return r_id;
@@ -550,30 +517,8 @@ public class SlidingCard extends LinearLayout {
         return mContent.getWidth();
     }
 
-    private void getHitRect(View v, Rect rect) {
-        v.getHitRect(rect);
-        ViewParent parent = v.getParent();
-        while (parent != null && parent != this) {
-            View _parent = (View) parent;
-            Rect parentRect = new Rect();
-            _parent.getHitRect(parentRect);
-            rect.left += parentRect.left;
-            rect.right += parentRect.left;
-            rect.top += parentRect.top;
-            rect.bottom += parentRect.top;
-            parent = parent.getParent();
-        }
-    }
-
-
-
-    private boolean thisSlideAllowed(float dx) {
-        if (!isCardClose()) {
-
-            return true;
-
-        }
-        return false;
+    private boolean thisSlideAllowed() {
+        return !isCardClose();
     }
 
     private int getLeftBound() {
@@ -614,7 +559,7 @@ public class SlidingCard extends LinearLayout {
         final float y = MotionEventCompat.getY(ev, pointerIndex);
         final float dy = y - mLastMotionY;
         final float yDiff = Math.abs(dy);
-        if (xDiff > mTouchSlop && xDiff > yDiff && thisSlideAllowed(dx)) {
+        if (xDiff > mTouchSlop && xDiff > yDiff && thisSlideAllowed()) {
             startDrag();
             mLastMotionX = x;
             mLastMotionY = y;
@@ -635,15 +580,14 @@ public class SlidingCard extends LinearLayout {
                 targetPage += 1;
             }
         } else {
-            targetPage = (int) Math.round(mCurItem + pageOffset);
+            targetPage = Math.round(mCurItem + pageOffset);
         }
         return targetPage;
     }
 
 
     @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        // Let the focused view and/or our descendants get the key first
+    public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
         return super.dispatchKeyEvent(event) || executeKeyEvent(event);
     }
 
@@ -695,9 +639,9 @@ public class SlidingCard extends LinearLayout {
                 currentFocused, direction);
         if (nextFocused != null && nextFocused != currentFocused) {
 
-                handled = nextFocused.requestFocus();
+            handled = nextFocused.requestFocus();
 
-        } else if ( direction == FOCUS_BACKWARD) {
+        } else if (direction == FOCUS_BACKWARD) {
             // Trying to move left and nothing there; try to page.
             handled = pageNext();
         }
@@ -715,7 +659,6 @@ public class SlidingCard extends LinearLayout {
         }
         return false;
     }
-
 
 
     private void onSecondaryPointerUp(MotionEvent ev) {
@@ -774,9 +717,9 @@ public class SlidingCard extends LinearLayout {
                 mLastMotionX = mInitialMotionX = ev.getX();
                 mLastMotionY = ev.getY();
                 mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
-                    completeScroll();
-                    mIsBeingDragged = false;
-                    mIsUnableToDrag = false;
+                completeScroll();
+                mIsBeingDragged = false;
+                mIsUnableToDrag = false;
                 break;
             case MotionEventCompat.ACTION_POINTER_UP:
                 onSecondaryPointerUp(ev);
@@ -793,7 +736,7 @@ public class SlidingCard extends LinearLayout {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public boolean onTouchEvent(@NonNull MotionEvent ev) {
         if (!mEnabled)
             return true;
         if (isCardClose())
@@ -880,6 +823,7 @@ public class SlidingCard extends LinearLayout {
                     mLastMotionX = MotionEventCompat.getX(ev,
                             findPointerIndex(ev, mActivePointerId));
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
         }
@@ -888,7 +832,7 @@ public class SlidingCard extends LinearLayout {
 
 
     @Override
-    protected void dispatchDraw(Canvas canvas) {
+    protected void dispatchDraw(@NonNull Canvas canvas) {
 
         PaintFlagsDrawFilter pfd = new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint
                 .FILTER_BITMAP_FLAG);
@@ -902,9 +846,6 @@ public class SlidingCard extends LinearLayout {
         super.dispatchDraw(canvas);
 
     }
-
-    private boolean isLowQuality = false;
-
 
     private void disableLayers() {
         //view按一般方式绘制，不使用离屏缓冲．这是默认的行为
