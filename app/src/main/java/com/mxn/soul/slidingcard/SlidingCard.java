@@ -23,8 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
 
-import com.mxn.soul.specialalbum.R;
-
 import java.lang.reflect.Field;
 
 
@@ -32,8 +30,6 @@ import java.lang.reflect.Field;
  * 每一个卡片布局
  */
 public class SlidingCard extends LinearLayout {
-
-    private static final String TAG = "SlidingCard";
 
     private static final boolean USE_CACHE = true;
 

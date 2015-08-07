@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.mxn.soul.specialalbum.R;
-
 import java.util.ArrayList;
 import java.util.List;
 

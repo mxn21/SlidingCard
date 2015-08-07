@@ -1,4 +1,4 @@
-# SpecialAlbum
+# SlidingCard
 相册特效
 
 ![Showcase](screen.gif)
