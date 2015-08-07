@@ -23,8 +23,8 @@ public class MainActivity extends Activity {
         List<PhotoContent> dataList = new ArrayList<>();
         PhotoContent photoContent1 =  new PhotoContent() ;
         photoContent1.setId("1") ;
-        photoContent1.setTitle("当红小花旦越来越惊艳了"); ;
-        photoContent1.setUrl("img1"); ;
+        photoContent1.setTitle("当红小花旦越来越惊艳了");
+        photoContent1.setUrl("img1");
         PhotoContent photoContent2 =  new PhotoContent() ;
         photoContent2.setId("2") ;
         photoContent2.setTitle("早秋长袖连衣裙刮起了唯美浪漫风") ;
