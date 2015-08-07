@@ -4,20 +4,16 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.v4.view.KeyEventCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewConfigurationCompat;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.FocusFinder;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.SoundEffectConstants;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -575,78 +571,8 @@ public class SlidingCard extends LinearLayout {
 
     @Override
     public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
-        return super.dispatchKeyEvent(event) || executeKeyEvent(event);
+        return super.dispatchKeyEvent(event) ;
     }
-
-    /**
-     * You can call this function yourself to have the scroll view perform
-     * scrolling from a key event, just as if the event had been dispatched to
-     * it by the view hierarchy.
-     *
-     * @param event The key event to execute.
-     * @return Return true if the event was handled, else false.
-     */
-    public boolean executeKeyEvent(KeyEvent event) {
-        boolean handled = false;
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            switch (event.getKeyCode()) {
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                    handled = arrowScroll(FOCUS_LEFT);
-                    break;
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                    handled = arrowScroll(FOCUS_RIGHT);
-                    break;
-                case KeyEvent.KEYCODE_TAB:
-                    if (Build.VERSION.SDK_INT >= 11) {
-                        // The focus finder had a bug handling FOCUS_FORWARD and
-                        // FOCUS_BACKWARD
-                        // before Android 3.0. Ignore the tab key on those
-                        // devices.
-                        if (KeyEventCompat.hasNoModifiers(event)) {
-                            handled = arrowScroll(FOCUS_FORWARD);
-                        } else if (KeyEventCompat.hasModifiers(event,
-                                KeyEvent.META_SHIFT_ON)) {
-                            handled = arrowScroll(FOCUS_BACKWARD);
-                        }
-                    }
-                    break;
-            }
-        }
-        return handled;
-    }
-
-    public boolean arrowScroll(int direction) {
-        View currentFocused = findFocus();
-        if (currentFocused == this)
-            currentFocused = null;
-
-        boolean handled = false;
-
-        View nextFocused = FocusFinder.getInstance().findNextFocus(this,
-                currentFocused, direction);
-        if (nextFocused != null && nextFocused != currentFocused) {
-
-            handled = nextFocused.requestFocus();
-
-        } else if (direction == FOCUS_BACKWARD) {
-            // Trying to move left and nothing there; try to page.
-            handled = pageNext();
-        }
-        if (handled) {
-            playSoundEffect(SoundEffectConstants
-                    .getContantForFocusDirection(direction));
-        }
-        return handled;
-    }
-
-    boolean pageNext() {
-        if (mCurItem > 0) {
-            setCurrentItem(mCurItem - 1, true);
-            return true;
-        }
-        return false;
-    }
-
 
     private void onSecondaryPointerUp(MotionEvent ev) {
         if (DEBUG)
