@@ -88,8 +88,7 @@ public class SlidingCard extends LinearLayout {
     private float mLastMotionY;
 
     /**
-     * 活动的触摸pointer的ID. This is used to retain consistency during
-     * drags/flings if multiple pointers are used.
+     * 活动的触摸pointer的ID. 用于当多点拖动的时候保持一致性
      */
     protected int mActivePointerId = INVALID_POINTER;
 
@@ -147,28 +146,22 @@ public class SlidingCard extends LinearLayout {
          *
          * @param position             Position index of the first page currently being
          *                             displayed. Page position+1 will be visible if
-         *                             positionOffset is nonzero.
-         * @param positionOffset       Value from [0, 1) indicating the offset from the page at
-         *                             position.
-         * @param positionOffsetPixels Value in pixels indicating the offset from position.
+         *                             positionOffset is 非零.
+         * @param positionOffset       范围是[0, 1) 表示从position的偏移
+         * @param positionOffsetPixels 从position的偏移的像素
          */
         void onPageScrolled(SlidingCard v, int position,
                             float positionOffset, int positionOffsetPixels);
 
         /**
-         * This method will be invoked when a new page becomes selected.
-         * Animation is not necessarily complete.
-         * <p/>
-         * Position index of the new selected page.
+         * 当新page被选中的时候调用
+         * 动画并不一定完成
          */
         void onPageSelected(SlidingCard v, int prevPosition,
                             int curPosition);
 
         /**
-         * This method will be invoked when a new page becomes selected. after
-         * animation has completed.
-         * <p/>
-         * Position index of the new selected page.
+         * 当动画结束后，新页面对选中时调用
          */
         void onPageSelectedAfterAnimation(SlidingCard v,
                                           int prevPosition, int curPosition);
