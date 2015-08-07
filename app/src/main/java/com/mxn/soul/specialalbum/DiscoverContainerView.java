@@ -112,8 +112,8 @@ public class DiscoverContainerView extends RelativeLayout implements
             }
         }
 
-        Log.e("test", "onPageScrolled:" + position + "," +positionOffset +","
-                + positionOffsetPixels);
+//        Log.e("test", "onPageScrolled:" + position + "," +positionOffset +","
+//                + positionOffsetPixels);
     }
 
     @Override
@@ -142,6 +142,19 @@ public class DiscoverContainerView extends RelativeLayout implements
     @Override
     public void onPageSelected(SlidingCard v, int prevPosition, int curPosition) {
         Log.e("test", "onPageSelected:" + curPosition);
+//        removeViewAt(getChildCount() - 1);
+//            PhotoContent item = dataList.get(0);
+//            dataList.remove(0);
+//            dataList.add(item);
+//            SlidingCard mSlidingCard = new SlidingCard(activity);
+//            mSlidingCard.setContent(R.layout.sliding_card_item);
+//            mSlidingCard.setUserVo(dataList.get(2));
+//            View contentView = mSlidingCard.getContentView();
+//
+//            setRotation(contentView);
+//            mSlidingCard.setCurrentItem(1, false);
+//            mSlidingCard.setOnPageChangeListener(this);
+//            addToView(mSlidingCard);
     }
 
     @Override

@@ -295,7 +295,7 @@ public class SlidingCard extends LinearLayout {
     private void completeScroll() {
         boolean needPopulate = mScrolling;
         if (needPopulate) {
-            // Done with scroll, no longer want to cache view drawing.
+            //滚动完成, 不再需要Cache
             setScrollingCacheEnabled(false);
             mScroller.abortAnimation();
             int oldX = getScrollX();
