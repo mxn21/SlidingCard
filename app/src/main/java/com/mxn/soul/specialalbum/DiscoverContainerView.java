@@ -111,6 +111,9 @@ public class DiscoverContainerView extends RelativeLayout implements
                 postInvalidate();
             }
         }
+
+        Log.e("test", "onPageScrolled:" + position + "," +positionOffset +","
+                + positionOffsetPixels);
     }
 
     @Override

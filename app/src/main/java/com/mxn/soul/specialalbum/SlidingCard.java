@@ -139,13 +139,8 @@ public class SlidingCard extends LinearLayout {
     public interface OnPageChangeListener {
 
         /**
-         * This method will be invoked when the current page is scrolled, either
-         * as part of a programmatically initiated smooth scroll or a user
-         * initiated touch scroll.
-         *
-         * @param position             Position index of the first page currently being
-         *                             displayed. Page position+1 will be visible if
-         *                             positionOffset is 非零.
+         * 当前page滚动的时候调用,只要位置有移动就会调用
+         * @param position             当前Position等于0, 左滑position等于1,右滑position等于-1
          * @param positionOffset       范围是[0, 1) 表示从position的偏移
          * @param positionOffsetPixels 从position的偏移的像素
          */
@@ -160,7 +155,7 @@ public class SlidingCard extends LinearLayout {
                             int curPosition);
 
         /**
-         * 当动画结束后，新页面对选中时调用
+         * 当动画结束后，新页面被选中时调用
          */
         void onPageSelectedAfterAnimation(SlidingCard v,
                                           int prevPosition, int curPosition);
