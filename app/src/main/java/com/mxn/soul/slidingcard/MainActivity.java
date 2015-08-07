@@ -1,7 +1,9 @@
-package com.mxn.soul.specialalbum;
+package com.mxn.soul.slidingcard;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.mxn.soul.specialalbum.R;
 
 import java.util.ArrayList;
 import java.util.List;

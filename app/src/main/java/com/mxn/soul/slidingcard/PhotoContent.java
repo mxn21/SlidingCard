@@ -1,4 +1,4 @@
-package com.mxn.soul.specialalbum;
+package com.mxn.soul.slidingcard;
 
 /**
  * Created by cys on 15/6/24.
