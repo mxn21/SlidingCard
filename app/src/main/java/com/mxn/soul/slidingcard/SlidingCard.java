@@ -314,18 +314,12 @@ public class SlidingCard extends LinearLayout {
     }
 
     float distanceInfluenceForSnapDuration(float f) {
-        f -= 0.5f; // center the values about 0.
         f *= 0.3f * Math.PI / 2.0f;
         return (float) Math.sin(f);
     }
 
     /**
-     * Like {@link View#scrollBy}, but scroll smoothly instead of immediately.
      *
-     * @param x        the number of pixels to scroll by on the X axis
-     * @param y        the number of pixels to scroll by on the Y axis
-     * @param velocity the velocity associated with a fling, if applicable. (0
-     *                 otherwise)
      */
     void smoothScrollTo(int x, int y, int velocity) {
         if (getChildCount() == 0) {
@@ -418,7 +412,6 @@ public class SlidingCard extends LinearLayout {
         try {
             super.removeAllViews();
         } catch (Exception e) {
-            Log.e("lq", String.valueOf(e.getMessage()));
         }
         mContent = child;
         super.addView(child);
@@ -430,7 +423,6 @@ public class SlidingCard extends LinearLayout {
         try {
             super.removeView(view);
         } catch (Exception e) {
-            Log.e("lq", String.valueOf(e.getMessage()));
         }
         disableLayers();
     }
@@ -463,7 +455,6 @@ public class SlidingCard extends LinearLayout {
             r_id = field.getInt(field.getName());
         } catch (Exception e) {
             r_id = R.drawable.img1;
-            Log.e("ERROR", "PICTURE NOT　FOUND！");
         }
         return r_id;
     }
@@ -627,7 +618,6 @@ public class SlidingCard extends LinearLayout {
                         return false;
                 }
                 if (mIsBeingDragged) {
-                    // Scroll to follow the motion event
                     final int activePointerIndex = findPointerIndex(ev,
                             mActivePointerId);
                     final float x = MotionEventCompat.getX(ev, activePointerIndex);
@@ -692,7 +682,6 @@ public class SlidingCard extends LinearLayout {
         }
         return true;
     }
-
 
     @Override
     protected void dispatchDraw(@NonNull Canvas canvas) {
