@@ -23,6 +23,8 @@ public class DiscoverContainerView extends RelativeLayout implements
 
     private int count = 0;
 
+    private float nextRotation ;
+
     //如果放在ViewPager或者ListView中需要解决滑动冲突
 //    private ViewPager mPager;
 //    private ListView listView;
@@ -87,34 +89,31 @@ public class DiscoverContainerView extends RelativeLayout implements
     @Override
     public void onPageScrolled(SlidingCard v, int position,
                                float positionOffset, int positionOffsetPixels) {
-        if (positionOffset == 0f) {
-            positionOffset = 1f;
-        }
-        //最上面一张滑动时，下面一张要跟着小距离移动
+//        Log.e("test", "onPageScrolled:" + position + "," +positionOffset +","
+//                + positionOffsetPixels);
         SlidingCard slidingCard = getNextView();
         if (slidingCard != null) {
             if (Math.abs(positionOffsetPixels) != 0) {
                 View contentView = slidingCard.getContentView();
                 LayoutParams params = new LayoutParams(
                         contentView.getLayoutParams());
-                params.topMargin = (int) ((1 - Math.abs(positionOffset)) *
+                params.topMargin = (int) ( Math.abs(positionOffset) *
                         getResources()
                                 .getDimensionPixelSize(R.dimen.card_item_margin));
-                params.leftMargin = (int) ((2 - Math.abs(positionOffset)) *
+                params.leftMargin = (int) (Math.abs(positionOffset) *
                         getResources()
                                 .getDimensionPixelSize(R.dimen.card_item_margin));
-                params.rightMargin = (int) ((2 - Math.abs(positionOffset)) *
+                params.rightMargin = (int) ( Math.abs(positionOffset) *
                         getResources()
                                 .getDimensionPixelSize(R.dimen.card_item_margin));
                 contentView.setLayoutParams(params);
-//                contentView.setRotation((int) ((1 - Math.abs(positionOffset)) *4));
-                contentView.setRotation(0);
+                contentView.setRotation((int) ( (1 - Math.abs(positionOffset)) * nextRotation));
                 postInvalidate();
             }
         }
 
-        Log.e("test", "onPageScrolled:" + position + "," +positionOffset +","
-                + positionOffsetPixels);
+
+
     }
 
     @Override
@@ -161,6 +160,14 @@ public class DiscoverContainerView extends RelativeLayout implements
     @Override
     public void onPageScrollStateChanged(SlidingCard v, int state) {
         Log.e("test", "state change:" + state);
+        if(state==1){
+            SlidingCard slidingCard = getNextView();
+            if (slidingCard != null) {
+                View contentView = slidingCard.getContentView();
+                nextRotation = contentView.getRotation() ;
+            }
+        }
+
     }
 
     private void setRotation(View v) {

@@ -7,13 +7,14 @@
         android:id="@+id/sliding_card_content_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
         android:gravity="center" >
 
         <ImageView
             android:id="@+id/user_imageview"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:padding="5dp"
             android:background="#ffffff"
             android:scaleType="fitXY"
@@ -25,8 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/user_imageview"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:background="#90575E6A"
             android:padding="5dp"
             android:textColor="#ffffff"

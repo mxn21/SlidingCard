@@ -9,7 +9,8 @@
     <com.mxn.soul.slidingcard.DiscoverContainerView
         android:id="@+id/contentview"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        >
     </com.mxn.soul.slidingcard.DiscoverContainerView>
 
 </RelativeLayout>
