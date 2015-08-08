@@ -313,13 +313,19 @@ public class SlidingCard extends LinearLayout {
         }
     }
 
+    //为了改变线性关系，而采用这样的中度的影响
     float distanceInfluenceForSnapDuration(float f) {
+        f -= 0.5f;
         f *= 0.3f * Math.PI / 2.0f;
         return (float) Math.sin(f);
     }
 
     /**
+     * Like {@link View#scrollBy}, 用平滑的滚动代替瞬间到达
      *
+     * @param x        X轴上移动的像素
+     * @param y        Y轴上移动的像素
+     * @param velocity 快速滑动时的速度(可以为0)
      */
     void smoothScrollTo(int x, int y, int velocity) {
         if (getChildCount() == 0) {
@@ -412,6 +418,7 @@ public class SlidingCard extends LinearLayout {
         try {
             super.removeAllViews();
         } catch (Exception e) {
+            Log.e("ERROR", String.valueOf(e.getMessage()));
         }
         mContent = child;
         super.addView(child);
@@ -423,6 +430,7 @@ public class SlidingCard extends LinearLayout {
         try {
             super.removeView(view);
         } catch (Exception e) {
+            Log.e("ERROR", String.valueOf(e.getMessage()));
         }
         disableLayers();
     }
@@ -455,6 +463,7 @@ public class SlidingCard extends LinearLayout {
             r_id = field.getInt(field.getName());
         } catch (Exception e) {
             r_id = R.drawable.img1;
+            Log.e("ERROR", String.valueOf(e.getMessage()));
         }
         return r_id;
     }
@@ -618,6 +627,7 @@ public class SlidingCard extends LinearLayout {
                         return false;
                 }
                 if (mIsBeingDragged) {
+                    // 跟随motion event滑动
                     final int activePointerIndex = findPointerIndex(ev,
                             mActivePointerId);
                     final float x = MotionEventCompat.getX(ev, activePointerIndex);
