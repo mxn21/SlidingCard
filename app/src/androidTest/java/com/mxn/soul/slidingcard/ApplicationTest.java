@@ -1,4 +1,4 @@
-package com.mxn.soul.specialalbum;
+package com.mxn.soul.slidingcard;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

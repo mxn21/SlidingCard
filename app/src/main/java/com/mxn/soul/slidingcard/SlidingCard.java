@@ -44,8 +44,6 @@ public class SlidingCard extends LinearLayout {
         }
     };
 
-    private boolean mEnabled = true;
-
     private View mContent;
 
     private int mPrevItem = DEFAULT_ITEM;
@@ -240,12 +238,12 @@ public class SlidingCard extends LinearLayout {
                 } else {
                     setScrollState(SCROLL_STATE_IDLE);
                 }
-                // Keep on drawing until the animation has finished.
+                // 继续绘图直到动画结束
                 ViewCompat.postInvalidateOnAnimation(this);
                 return;
             }
         }
-        // Done with scroll, clean up state.
+        // scroll完成, 清除状态
         completeScroll();
     }
 
@@ -572,8 +570,7 @@ public class SlidingCard extends LinearLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (!mEnabled)
-            return true;
+
         if (isCardClose())
             return false;
         final int action = ev.getAction() & MotionEventCompat.ACTION_MASK;
@@ -610,8 +607,6 @@ public class SlidingCard extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent ev) {
-        if (!mEnabled)
-            return true;
         if (isCardClose())
             return false;
         final int action = ev.getAction();
