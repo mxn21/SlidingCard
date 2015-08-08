@@ -570,7 +570,6 @@ public class SlidingCard extends LinearLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-
         if (isCardClose())
             return false;
         final int action = ev.getAction() & MotionEventCompat.ACTION_MASK;
@@ -616,7 +615,7 @@ public class SlidingCard extends LinearLayout {
         mVelocityTracker.addMovement(ev);
         switch (action & MotionEventCompat.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
-                // Remember where the motion event started
+                //记录event的开始点
                 mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
                 mLastMotionX = mInitialMotionX = ev.getX();
                 mLastMotionY = ev.getY();
