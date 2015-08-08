@@ -107,13 +107,14 @@ public class DiscoverContainerView extends RelativeLayout implements
                         getResources()
                                 .getDimensionPixelSize(R.dimen.card_item_margin));
                 contentView.setLayoutParams(params);
+//                contentView.setRotation((int) ((1 - Math.abs(positionOffset)) *4));
                 contentView.setRotation(0);
                 postInvalidate();
             }
         }
 
-//        Log.e("test", "onPageScrolled:" + position + "," +positionOffset +","
-//                + positionOffsetPixels);
+        Log.e("test", "onPageScrolled:" + position + "," +positionOffset +","
+                + positionOffsetPixels);
     }
 
     @Override
