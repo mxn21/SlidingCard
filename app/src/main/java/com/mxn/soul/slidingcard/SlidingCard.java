@@ -147,7 +147,7 @@ public class SlidingCard extends LinearLayout {
         /**
          * 当动画结束后，新页面被选中时调用
          */
-        void onPageSelectedAfterAnimation(SlidingCard v,
+         void onPageSelectedAfterAnimation(SlidingCard v,
                                           int prevPosition, int curPosition);
 
         /**

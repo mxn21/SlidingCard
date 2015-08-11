@@ -87,7 +87,7 @@ public class DiscoverContainerView extends RelativeLayout implements
     }
 
     @Override
-    public void onPageScrolled(SlidingCard v, int position,
+    public synchronized void onPageScrolled(SlidingCard v, int position,
                                float positionOffset, int positionOffsetPixels) {
 //        Log.e("test", "onPageScrolled:" + position + "," +positionOffset +","
 //                + positionOffsetPixels);
@@ -114,7 +114,7 @@ public class DiscoverContainerView extends RelativeLayout implements
     }
 
     @Override
-    public void onPageSelectedAfterAnimation(SlidingCard v, int prevPosition,
+    public synchronized void onPageSelectedAfterAnimation(SlidingCard v, int prevPosition,
                                              int curPosition) {
         if (activity != null) {
             removeViewAt(getChildCount() - 1);
@@ -137,7 +137,7 @@ public class DiscoverContainerView extends RelativeLayout implements
     }
 
     @Override
-    public void onPageSelected(SlidingCard v, int prevPosition, int curPosition) {
+    public synchronized void onPageSelected(SlidingCard v, int prevPosition, int curPosition) {
         Log.e("test", "onPageSelected:" + curPosition);
 //        removeViewAt(getChildCount() - 1);
 //            PhotoContent item = dataList.get(0);
@@ -155,7 +155,7 @@ public class DiscoverContainerView extends RelativeLayout implements
     }
 
     @Override
-    public void onPageScrollStateChanged(SlidingCard v, int state) {
+    public synchronized void onPageScrollStateChanged(SlidingCard v, int state) {
         Log.e("test", "state change:" + state);
         if(state==1){
             SlidingCard slidingCard = getNextView();
