@@ -111,9 +111,6 @@ public class DiscoverContainerView extends RelativeLayout implements
                 postInvalidate();
             }
         }
-
-
-
     }
 
     @Override
