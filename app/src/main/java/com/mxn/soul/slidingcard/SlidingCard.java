@@ -59,7 +59,7 @@ public class SlidingCard extends LinearLayout {
     private boolean mScrollingCacheEnabled;
 
     private boolean mScrolling;
-    private static boolean sScrolling;
+    private static boolean sScrolling = false ;
 
     private boolean mIsBeingDragged;
 
@@ -297,6 +297,7 @@ public class SlidingCard extends LinearLayout {
             }
         }
         mScrolling = false;
+        sScrolling = false;
     }
 
     private void setScrollingCacheEnabled(boolean enabled) {
@@ -345,6 +346,7 @@ public class SlidingCard extends LinearLayout {
         setScrollingCacheEnabled(true);
         setScrollState(SCROLL_STATE_SETTLING);
         mScrolling = true;
+        sScrolling = true;
         final int width = getWidth();
         final int halfWidth = width / 2;
         final float distanceRatio = Math.min(1f, 1.0f * Math.abs(dx) / width);
@@ -607,7 +609,7 @@ public class SlidingCard extends LinearLayout {
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent ev) {
-        if(mScrolling)
+        if(sScrolling)
             return false;
         if (isCardClose())
             return false;
