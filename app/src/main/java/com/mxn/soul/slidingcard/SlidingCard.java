@@ -59,7 +59,7 @@ public class SlidingCard extends LinearLayout {
     private boolean mScrollingCacheEnabled;
 
     private boolean mScrolling;
-    private static boolean sScrolling = false ;
+    public static boolean sScrolling = false ;
 
     private boolean mIsBeingDragged;
 
@@ -297,7 +297,6 @@ public class SlidingCard extends LinearLayout {
             }
         }
         mScrolling = false;
-        sScrolling = false;
     }
 
     private void setScrollingCacheEnabled(boolean enabled) {
@@ -573,6 +572,9 @@ public class SlidingCard extends LinearLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if(sScrolling)
+            return false;
+
         if (isCardClose())
             return false;
         final int action = ev.getAction() & MotionEventCompat.ACTION_MASK;

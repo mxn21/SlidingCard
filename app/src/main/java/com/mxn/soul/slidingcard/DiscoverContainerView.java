@@ -131,6 +131,7 @@ public class DiscoverContainerView extends RelativeLayout implements
             mSlidingCard.setOnPageChangeListener(this);
             addToView(mSlidingCard);
 
+
             Log.e("test", "onPageSelectedAfterAnimation:" + curPosition + ","
                     + getChildCount());
         }
@@ -139,19 +140,6 @@ public class DiscoverContainerView extends RelativeLayout implements
     @Override
     public synchronized void onPageSelected(SlidingCard v, int prevPosition, int curPosition) {
         Log.e("test", "onPageSelected:" + curPosition);
-//        removeViewAt(getChildCount() - 1);
-//            PhotoContent item = dataList.get(0);
-//            dataList.remove(0);
-//            dataList.add(item);
-//            SlidingCard mSlidingCard = new SlidingCard(activity);
-//            mSlidingCard.setContent(R.layout.sliding_card_item);
-//            mSlidingCard.setUserVo(dataList.get(2));
-//            View contentView = mSlidingCard.getContentView();
-//
-//            setRotation(contentView);
-//            mSlidingCard.setCurrentItem(1, false);
-//            mSlidingCard.setOnPageChangeListener(this);
-//            addToView(mSlidingCard);
     }
 
     @Override
@@ -163,6 +151,8 @@ public class DiscoverContainerView extends RelativeLayout implements
                 View contentView = slidingCard.getContentView();
                 nextRotation = contentView.getRotation() ;
             }
+        }else if(state==0){
+            SlidingCard.sScrolling = false ;
         }
     }
 
