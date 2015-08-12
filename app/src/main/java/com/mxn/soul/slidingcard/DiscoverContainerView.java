@@ -164,7 +164,6 @@ public class DiscoverContainerView extends RelativeLayout implements
                 nextRotation = contentView.getRotation() ;
             }
         }
-
     }
 
     private void setRotation(View v) {
