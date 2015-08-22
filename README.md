@@ -1,9 +1,9 @@
 # SlidingCard
-相册特效
 
 ![Showcase](screen.gif)
 
-相册滑动翻页效果
+Sliding cards with pretty gallery effects.
+漂亮的卡片滑动翻页特效。
 
 ### 1.5版本更新 2015.8.12
 
