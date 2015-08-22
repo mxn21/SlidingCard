@@ -1,4 +1,4 @@
-# SlidingCard
+# SlidingCard [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SlidingCard-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2355)
 
 ![Showcase](screen.gif)
 
