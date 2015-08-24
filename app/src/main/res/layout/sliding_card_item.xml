@@ -1,37 +1,31 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    android:id="@+id/sliding_card_content_view"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingBottom="20dp">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/user_imageview"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:background="#ffffff"
+        android:padding="5dp"
+        android:scaleType="fitXY"
+        />
 
-        android:id="@+id/sliding_card_content_view"
+    <TextView
+        android:id="@+id/user_text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        android:gravity="center" >
-
-        <ImageView
-            android:id="@+id/user_imageview"
-            android:layout_width="fill_parent"
-            android:layout_height="200dp"
-            android:layout_margin="10dp"
-            android:padding="5dp"
-            android:background="#ffffff"
-            android:scaleType="fitXY"
-            />
-
-        <TextView
-            android:id="@+id/user_text"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/user_imageview"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="#90575E6A"
-            android:padding="5dp"
-            android:textColor="#ffffff"
-            android:textSize="14sp" />
-    </RelativeLayout>
-
+        android:layout_alignBottom="@id/user_imageview"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#90575E6A"
+        android:padding="5dp"
+        android:textColor="#ffffff"
+        android:textSize="14sp"/>
 </RelativeLayout>

@@ -18,12 +18,9 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.Interpolator;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Scroller;
-import android.widget.TextView;
-
-import java.lang.reflect.Field;
 
 
 /**
@@ -100,8 +97,6 @@ public class SlidingCard extends LinearLayout {
     private int mFlingDistance;
 
     private OnPageChangeListener mOnPageChangeListener;
-
-    private View contentView;
 
     public void setOnPageChangeListener(OnPageChangeListener listener) {
         mOnPageChangeListener = listener;
@@ -437,37 +432,13 @@ public class SlidingCard extends LinearLayout {
         disableLayers();
     }
     public void setContent(int res) {
-        setContent(LayoutInflater.from(getContext()).inflate(res, null));
+        RelativeLayout root  = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.sliding_card_root, null);
+        root.addView(LayoutInflater.from(getContext()).inflate(res, null));
+        setContent(root);
     }
 
     public void setContent(View v) {
         addView(v);
-    }
-
-
-    public void initCardChildView(PhotoContent vo) {
-        ImageView mImageView = (ImageView) findViewById(R.id.user_imageview);
-        TextView mTextView = (TextView) findViewById(R.id.user_text);
-        contentView = findViewById(R.id.sliding_card_content_view);
-        if (vo != null) {
-            mTextView.setText(vo.getTitle());
-            mImageView.setImageResource(getResourceByReflect(vo.getUrl()));
-
-        }
-    }
-
-    public int getResourceByReflect(String imageName) {
-        Class drawable = R.drawable.class;
-        Field field ;
-        int r_id;
-        try {
-            field = drawable.getField(imageName);
-            r_id = field.getInt(field.getName());
-        } catch (Exception e) {
-            r_id = R.drawable.img1;
-            Log.e("ERROR", String.valueOf(e.getMessage()));
-        }
-        return r_id;
     }
 
     public boolean isCardClose() {
@@ -723,13 +694,4 @@ public class SlidingCard extends LinearLayout {
                     null);
         }
     }
-
-    public void setUserVo(PhotoContent photoVo) {
-        initCardChildView(photoVo);
-    }
-
-    public View getContentView() {
-        return contentView;
-    }
-
 }

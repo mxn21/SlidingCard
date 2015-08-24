@@ -7,24 +7,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * 一组照片的布局
  */
-public class DiscoverContainerView extends RelativeLayout implements
+public class ContainerView extends RelativeLayout implements
         SlidingCard.OnPageChangeListener {
 
-    private Activity activity;
-
-    private List<PhotoContent> dataList = new ArrayList<>();
+    private Context context;
+    private ContainerInterface containerInterface;
 
     private int count = 0;
 
     private float nextRotation ;
 
+    private int rootId ;
+    private int layoutId ;
     //如果放在ViewPager或者ListView中需要解决滑动冲突
 //    private ViewPager mPager;
 //    private ListView listView;
@@ -34,12 +32,14 @@ public class DiscoverContainerView extends RelativeLayout implements
 //        this.listView = listView;
 //    }
 
-    public DiscoverContainerView(Context context) {
+    public ContainerView(Context context) {
         super(context);
+        this.context = context ;
     }
 
-    public DiscoverContainerView(Context context, AttributeSet attrs) {
+    public ContainerView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context ;
     }
 
     public void addToView(View child) {
@@ -49,23 +49,18 @@ public class DiscoverContainerView extends RelativeLayout implements
         addView(child, 0, layoutParams);
     }
 
-    public void initCardView(final Activity activity, List<PhotoContent> dataList) {
-        this.activity = activity;
-        this.dataList = dataList;
+    public void initCardView(final Activity activity,int layoutId,int rootId) {
+        this.containerInterface = (ContainerInterface) activity;
+        this.rootId = rootId ;
+        this.layoutId = layoutId ;
         if (android.os.Build.VERSION.SDK_INT >= 11) {
             setLayerType(LAYER_TYPE_SOFTWARE, null);
         }
-
-        if (dataList == null || dataList.size() < 3)
-            return;
-
         for (int i = 0; i < 3; i++) {
-            PhotoContent userVo = dataList.get(i);
-            if (userVo != null) {
-                SlidingCard mSlidingCard = new SlidingCard(this.activity);
-                mSlidingCard.setContent(R.layout.sliding_card_item);
-                mSlidingCard.setUserVo(userVo);
-                View contentView = mSlidingCard.getContentView();
+                SlidingCard mSlidingCard = new SlidingCard(context);
+                mSlidingCard.setContent(layoutId);
+                containerInterface.initCard(mSlidingCard, i) ;
+                View contentView = mSlidingCard.findViewById(rootId);
                 if (i == 1) {
                     contentView.setRotation(4);
                 }
@@ -75,7 +70,6 @@ public class DiscoverContainerView extends RelativeLayout implements
                 mSlidingCard.setCurrentItem(1, false);
                 mSlidingCard.setOnPageChangeListener(this);
                 addToView(mSlidingCard);
-            }
         }
     }
 
@@ -94,7 +88,7 @@ public class DiscoverContainerView extends RelativeLayout implements
         SlidingCard slidingCard = getNextView();
         if (slidingCard != null) {
             if (Math.abs(positionOffsetPixels) != 0) {
-                View contentView = slidingCard.getContentView();
+                View contentView = slidingCard.findViewById(rootId);
                 LayoutParams params = new LayoutParams(
                         contentView.getLayoutParams());
                 params.topMargin = (int) ( Math.abs(positionOffset) *
@@ -116,22 +110,17 @@ public class DiscoverContainerView extends RelativeLayout implements
     @Override
     public synchronized void onPageSelectedAfterAnimation(SlidingCard v, int prevPosition,
                                              int curPosition) {
-        if (activity != null) {
+        if (context != null) {
             removeViewAt(getChildCount() - 1);
-            PhotoContent item = dataList.get(0);
-            dataList.remove(0);
-            dataList.add(item);
-            SlidingCard mSlidingCard = new SlidingCard(activity);
-            mSlidingCard.setContent(R.layout.sliding_card_item);
-            mSlidingCard.setUserVo(dataList.get(2));
-            View contentView = mSlidingCard.getContentView();
-
+            containerInterface.exChangeCard();
+            SlidingCard mSlidingCard = new SlidingCard(context);
+            mSlidingCard.setContent(layoutId);
+            containerInterface.initCard(mSlidingCard, 2) ;
+            View contentView = mSlidingCard.findViewById(rootId);
             setRotation(contentView);
             mSlidingCard.setCurrentItem(1, false);
             mSlidingCard.setOnPageChangeListener(this);
             addToView(mSlidingCard);
-
-
             Log.e("test", "onPageSelectedAfterAnimation:" + curPosition + ","
                     + getChildCount());
         }
@@ -148,7 +137,7 @@ public class DiscoverContainerView extends RelativeLayout implements
         if(state==1){
             SlidingCard slidingCard = getNextView();
             if (slidingCard != null) {
-                View contentView = slidingCard.getContentView();
+                View contentView = slidingCard.findViewById(rootId) ;
                 nextRotation = contentView.getRotation() ;
             }
         }else if(state==0){
@@ -165,6 +154,13 @@ public class DiscoverContainerView extends RelativeLayout implements
         postInvalidate();
         count++;
     }
+
+    interface ContainerInterface{
+        void initCard(SlidingCard card ,int index) ;
+        void exChangeCard() ;
+
+    }
+
     //如果放在ViewPager或者ListView中需要重写下面三个方法解决滑动冲突
 //    @Override
 //    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
@@ -184,4 +180,5 @@ public class DiscoverContainerView extends RelativeLayout implements
 //        listView.requestDisallowInterceptTouchEvent(true);
 //        return super.onTouchEvent(event);
 //    }
+
 }

@@ -6,11 +6,10 @@
                 android:gravity="center"
                 tools:context=".MainActivity">
 
-    <com.mxn.soul.slidingcard.DiscoverContainerView
+    <com.mxn.soul.slidingcard.ContainerView
         android:id="@+id/contentview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        >
-    </com.mxn.soul.slidingcard.DiscoverContainerView>
+        />
 
 </RelativeLayout>
