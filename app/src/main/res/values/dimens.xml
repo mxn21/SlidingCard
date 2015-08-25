@@ -1,7 +1,0 @@
-<resources>
-
-
-    <dimen name="card_item_height">230dip</dimen>
-
-    <dimen name="card_item_margin">10dip</dimen>
-</resources>

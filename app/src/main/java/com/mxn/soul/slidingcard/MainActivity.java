@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mxn.soul.library.ContainerView;
+import com.mxn.soul.library.SlidingCard;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;

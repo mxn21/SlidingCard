@@ -1,7 +1,8 @@
-package com.mxn.soul.slidingcard;
+package com.mxn.soul.library;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,10 @@ public class ContainerView extends RelativeLayout implements
 
     private int rootId ;
     private int layoutId ;
+
+    private int cardItemHeight ;
+    private int cardItemMargin ;
+
     //如果放在ViewPager或者ListView中需要解决滑动冲突
 //    private ViewPager mPager;
 //    private ListView listView;
@@ -40,7 +45,21 @@ public class ContainerView extends RelativeLayout implements
     public ContainerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context ;
+        TypedArray types = context.obtainStyledAttributes(attrs,
+                R.styleable.ContainerView);
+        final int count = types.getIndexCount();
+        for (int i = 0; i < count; ++i) {
+            int attr = types.getIndex(i);
+            if (attr == R.styleable.ContainerView_card_item_height) {
+                cardItemHeight = types.getDimensionPixelSize(attr, 0);
+            } else if (attr == R.styleable.ContainerView_card_item_margin) {
+                cardItemMargin = types.getDimensionPixelSize(attr, 10);
+
+            }
+        }
+        types.recycle();
     }
+
 
     public void addToView(View child) {
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
@@ -59,6 +78,7 @@ public class ContainerView extends RelativeLayout implements
         for (int i = 0; i < 3; i++) {
                 SlidingCard mSlidingCard = new SlidingCard(context);
                 mSlidingCard.setContent(layoutId);
+                mSlidingCard.setCardHeight(cardItemHeight);
                 containerInterface.initCard(mSlidingCard, i) ;
                 View contentView = mSlidingCard.findViewById(rootId);
                 if (i == 1) {
@@ -91,15 +111,9 @@ public class ContainerView extends RelativeLayout implements
                 View contentView = slidingCard.findViewById(rootId);
                 LayoutParams params = new LayoutParams(
                         contentView.getLayoutParams());
-                params.topMargin = (int) ( Math.abs(positionOffset) *
-                        getResources()
-                                .getDimensionPixelSize(R.dimen.card_item_margin));
-                params.leftMargin = (int) (Math.abs(positionOffset) *
-                        getResources()
-                                .getDimensionPixelSize(R.dimen.card_item_margin));
-                params.rightMargin = (int) ( Math.abs(positionOffset) *
-                        getResources()
-                                .getDimensionPixelSize(R.dimen.card_item_margin));
+                params.topMargin = (int) ( Math.abs(positionOffset) * cardItemMargin);
+                params.leftMargin = (int) (Math.abs(positionOffset) * cardItemMargin);
+                params.rightMargin = (int) ( Math.abs(positionOffset) * cardItemMargin);
                 contentView.setLayoutParams(params);
                 contentView.setRotation((int) ( (1 - Math.abs(positionOffset)) * nextRotation));
                 postInvalidate();
@@ -115,6 +129,7 @@ public class ContainerView extends RelativeLayout implements
             containerInterface.exChangeCard();
             SlidingCard mSlidingCard = new SlidingCard(context);
             mSlidingCard.setContent(layoutId);
+            mSlidingCard.setCardHeight(cardItemHeight);
             containerInterface.initCard(mSlidingCard, 2) ;
             View contentView = mSlidingCard.findViewById(rootId);
             setRotation(contentView);
@@ -155,8 +170,8 @@ public class ContainerView extends RelativeLayout implements
         count++;
     }
 
-    interface ContainerInterface{
-        void initCard(SlidingCard card ,int index) ;
+    public interface ContainerInterface{
+        void initCard(SlidingCard card, int index) ;
         void exChangeCard() ;
 
     }

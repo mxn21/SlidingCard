@@ -1,4 +1,4 @@
-package com.mxn.soul.slidingcard;
+package com.mxn.soul.library;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -119,6 +119,8 @@ public class SlidingCard extends LinearLayout {
 
     private int mScrollState = SCROLL_STATE_IDLE;
 
+    private int cardHeight ;
+
     /**
      * 滑动的回调接口
      */
@@ -144,7 +146,7 @@ public class SlidingCard extends LinearLayout {
          * 当动画结束后，新页面被选中时调用
          */
          void onPageSelectedAfterAnimation(SlidingCard v,
-                                          int prevPosition, int curPosition);
+                                           int prevPosition, int curPosition);
 
         /**
          * 当滑动状态改变时调用，用来观察：拖动状态，自动移动状态，和停止状态。
@@ -192,12 +194,10 @@ public class SlidingCard extends LinearLayout {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int itemHeight = getContext().getResources().getDimensionPixelSize(
-                R.dimen.card_item_height);
         int width = getDefaultSize(0, widthMeasureSpec);
-        setMeasuredDimension(width, itemHeight);
+        setMeasuredDimension(width, cardHeight);
         final int contentWidth = getChildMeasureSpec(widthMeasureSpec, 0, width);
-        mContent.measure(contentWidth, itemHeight);
+        mContent.measure(contentWidth, cardHeight);
     }
 
     @Override
@@ -432,9 +432,12 @@ public class SlidingCard extends LinearLayout {
         disableLayers();
     }
     public void setContent(int res) {
-        RelativeLayout root  = (RelativeLayout) LayoutInflater.from(getContext()).inflate(R.layout.sliding_card_root, null);
+        RelativeLayout root  = (RelativeLayout) View.inflate(getContext(),R.layout.sliding_card_root, null);
         root.addView(LayoutInflater.from(getContext()).inflate(res, null));
         setContent(root);
+    }
+    public void setCardHeight(int cardHeight) {
+        this.cardHeight = cardHeight ;
     }
 
     public void setContent(View v) {

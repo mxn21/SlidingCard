@@ -1,15 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:card="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#F7E4BC"
-                android:gravity="center"
-                tools:context=".MainActivity">
+                android:gravity="center">
 
-    <com.mxn.soul.slidingcard.ContainerView
+    <com.mxn.soul.library.ContainerView
         android:id="@+id/contentview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        card:card_item_height = "230dp"
+        card:card_item_margin = "10dp"
         />
 
 </RelativeLayout>

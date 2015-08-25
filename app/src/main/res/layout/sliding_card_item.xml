@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:id="@+id/sliding_card_content_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,7 +15,7 @@
         android:background="#ffffff"
         android:padding="5dp"
         android:scaleType="fitXY"
-        />
+        android:contentDescription="@string/app_name"/>
 
     <TextView
         android:id="@+id/user_text"
