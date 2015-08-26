@@ -6,7 +6,7 @@
                 android:background="#F7E4BC"
                 android:gravity="center">
 
-    <com.mxn.soul.library.ContainerView
+    <com.mxn.soul.slidingcard_core.ContainerView
         android:id="@+id/contentview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

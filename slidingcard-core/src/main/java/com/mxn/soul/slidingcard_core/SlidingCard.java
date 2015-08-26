@@ -1,4 +1,4 @@
-package com.mxn.soul.library;
+package com.mxn.soul.slidingcard_core;
 
 import android.content.Context;
 import android.graphics.Canvas;
