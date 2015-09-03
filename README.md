@@ -177,7 +177,7 @@ sliding_card_item.xml
 
 contentView.initCardView() need to set you own layout name ,and the id of the root .
 
-it's easy to create a list to store the data , but make sure the size of the list is bigger than 3 .
+it's easy to create a list to store the data , but make sure the size of the list is more than 3 .
 
 
 # TODO
