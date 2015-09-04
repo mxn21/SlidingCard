@@ -5,19 +5,28 @@
 Sliding cards with pretty gallery effects.
 
 
-# Usage
+# Download
 
-*For a working implementation of this project see the `app/` folder.*
-
-1.Download the latest JAR  via Maven:
+Include the following dependency in your build.gradle file.
 
 Gradle:
+
+    repositories {
+        jcenter()
+    }
 
     dependencies {
         compile 'com.mxn.soul:slidingcard-core:1.2.0'
     }
 
-2.Add ContainerView to your activity's layout
+
+
+# Usage
+
+*For a working implementation of this project see the `app/` folder.*
+
+
+1.Add ContainerView to your activity's layout
 
 activity_main.xml:
 
@@ -49,7 +58,7 @@ if you want the first view smaller than the second one to get a beautiful screen
 set *card_item_margin*
 
 
-3.Create your own layout for the card
+2.Create your own layout for the card
 
 sliding_card_item.xml
 
@@ -87,7 +96,7 @@ sliding_card_item.xml
     </RelativeLayout>
 
 
-4.implements ContainerView.ContainerInterface  and  override  initCard(),exChangeCard()
+3.implements ContainerView.ContainerInterface  and  override  initCard(),exChangeCard()
 
 
     public class MainActivity extends ActionBarActivity implements ContainerView.ContainerInterface {
