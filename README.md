@@ -26,7 +26,7 @@ Gradle:
 *For a working implementation of this project see the `app/` folder.*
 
 
-1.Add ContainerView to your activity's layout
+1.Add the com.mxn.soul.slidingcard_core.ContainerView to your layout XML file.
 
 activity_main.xml:
 
