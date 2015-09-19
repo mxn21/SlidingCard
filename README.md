@@ -16,7 +16,7 @@ Gradle:
     }
 
     dependencies {
-        compile 'com.mxn.soul:slidingcard-core:1.2.0'
+        compile 'com.mxn.soul:slidingcard-core:1.3.0'
     }
 
 
@@ -113,35 +113,17 @@ sliding_card_item.xml
             initData() ;
     }
 
-        private void initData(){
-            dataList = new ArrayList<>();
-            PhotoContent photoContent1 =  new PhotoContent() ;
-            photoContent1.setId("1") ;
-            photoContent1.setTitle("当红小花旦越来越惊艳了");
-            photoContent1.setUrl("img1");
-            PhotoContent photoContent2 =  new PhotoContent() ;
-            photoContent2.setId("2") ;
-            photoContent2.setTitle("早秋长袖连衣裙刮起了唯美浪漫风") ;
-            photoContent2.setUrl("img2") ;
-            PhotoContent photoContent3 =  new PhotoContent() ;
-            photoContent3.setId("3") ;
-            photoContent3.setTitle("高品质裙装美照让你一次看过瘾") ;
-            photoContent3.setUrl("img3") ;
-            PhotoContent photoContent4 =  new PhotoContent() ;
-            photoContent4.setId("4") ;
-            photoContent4.setTitle("蕾丝防晒衫棒球服外套") ;
-            photoContent4.setUrl("img4") ;
-            PhotoContent photoContent5 =  new PhotoContent() ;
-            photoContent5.setId("5") ;
-            photoContent5.setTitle("纯色开衫薄款外套防嗮衫") ;
-            photoContent5.setUrl("img5") ;
-            dataList.add(photoContent1) ;
-            dataList.add(photoContent2) ;
-            dataList.add(photoContent3) ;
-            dataList.add(photoContent4) ;
-            dataList.add(photoContent5) ;
-            contentView.initCardView(MainActivity.this,R.layout.sliding_card_item,R.id.sliding_card_content_view);
-        }
+       private void initData(){
+               dataList = new ArrayList<>();
+               String[] titles = getResources().getStringArray(R.array.title) ;
+               String[] imgs = getResources().getStringArray(R.array.imgs) ;
+               for(int n = 0 ; n < titles.length;n++){
+                   PhotoContent photoContent = new PhotoContent(String.valueOf(n),titles[n],imgs[n]) ;
+                   dataList.add(photoContent) ;
+               }
+               contentView.initCardView(MainActivity.this,R.layout.sliding_card_item,R.id
+                       .sliding_card_content_view);
+           }
 
         @Override
         public void initCard(SlidingCard card, int index) {
@@ -184,15 +166,32 @@ sliding_card_item.xml
         }
     }
 
-contentView.initCardView() need to set you own layout name ,and the id of the root .
+contentView.initCardView() need to set you own layout's name ,and the root's id .
+example: initCardView(ContainerInterface mContainerInterface,int layoutId,int rootId).
 
-it's easy to create a list to store the data , but make sure the size of the list is more than 3 .
+it's easy to set new ArrayList() to store the data , but make sure the list's size is more
+than 3 .
+
+if you put it in scrollable viewgroup like listview ,viewpager etc..,drag will not work Normally,
+I provide a method to avoid scroll conflict:
+
+    public void setScrollableGroups(ViewGroup...args)
+
+do this after contentView's Initialization:
+
+    contentView = (ContainerView) view.findViewById(R.id.contentview);
+    contentView.setScrollableGroups(viewPager, listview) ;
+    contentView.initCardView(MyFragment.this, R.layout.sliding_card_item, R.id
+                .sliding_card_content_view);
 
 
 # TODO
 
 Optimized memory
 
+### V1.7
+
+support SlidingCard with Fragment. Add method to solve scroll conflict.
 
 ### V1.6
 

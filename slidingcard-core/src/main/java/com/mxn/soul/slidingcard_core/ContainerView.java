@@ -1,11 +1,12 @@
 package com.mxn.soul.slidingcard_core;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 
@@ -28,14 +29,11 @@ public class ContainerView extends RelativeLayout implements
     private int cardItemHeight ;
     private int cardItemMargin ;
 
-    //如果放在ViewPager或者ListView中需要解决滑动冲突
-//    private ViewPager mPager;
-//    private ListView listView;
+    private ViewGroup scrollableGroups[];
 
-//    public void setPagerAndListView(ViewPager mPager, ListView listView) {
-//        this.mPager = mPager;
-//        this.listView = listView;
-//    }
+    public void setScrollableGroups(ViewGroup...args) {
+        this.scrollableGroups = args;
+    }
 
     public ContainerView(Context context) {
         super(context);
@@ -68,8 +66,8 @@ public class ContainerView extends RelativeLayout implements
         addView(child, 0, layoutParams);
     }
 
-    public void initCardView(final Activity activity,int layoutId,int rootId) {
-        this.containerInterface = (ContainerInterface) activity;
+    public void initCardView(final ContainerInterface containerInterface,int layoutId,int rootId) {
+        this.containerInterface = containerInterface;
         this.rootId = rootId ;
         this.layoutId = layoutId ;
         if (android.os.Build.VERSION.SDK_INT >= 11) {
@@ -136,19 +134,19 @@ public class ContainerView extends RelativeLayout implements
             mSlidingCard.setCurrentItem(1, false);
             mSlidingCard.setOnPageChangeListener(this);
             addToView(mSlidingCard);
-            Log.e("test", "onPageSelectedAfterAnimation:" + curPosition + ","
-                    + getChildCount());
+//            Log.e("test", "onPageSelectedAfterAnimation:" + curPosition + ","
+//                    + getChildCount());
         }
     }
 
     @Override
     public synchronized void onPageSelected(SlidingCard v, int prevPosition, int curPosition) {
-        Log.e("test", "onPageSelected:" + curPosition);
+       // Log.e("test", "onPageSelected:" + curPosition);
     }
 
     @Override
     public synchronized void onPageScrollStateChanged(SlidingCard v, int state) {
-        Log.e("test", "state change:" + state);
+     //   Log.e("test", "state change:" + state);
         if(state==1){
             SlidingCard slidingCard = getNextView();
             if (slidingCard != null) {
@@ -177,23 +175,29 @@ public class ContainerView extends RelativeLayout implements
     }
 
     //如果放在ViewPager或者ListView中需要重写下面三个方法解决滑动冲突
-//    @Override
-//    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
-//        mPager.requestDisallowInterceptTouchEvent(true);
-//        listView.requestDisallowInterceptTouchEvent(true);
-//        return super.dispatchTouchEvent(ev);
-//    }
-//    @Override
-//    public boolean onInterceptTouchEvent(MotionEvent ev) {
-//        mPager.requestDisallowInterceptTouchEvent(true);
-//        listView.requestDisallowInterceptTouchEvent(true);
-//        return super.onInterceptTouchEvent(ev);
-//    }
-//    @Override
-//    public boolean onTouchEvent(@NonNull MotionEvent event) {
-//        mPager.requestDisallowInterceptTouchEvent(true);
-//        listView.requestDisallowInterceptTouchEvent(true);
-//        return super.onTouchEvent(event);
-//    }
+    @Override
+    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
+        if(scrollableGroups!=null && scrollableGroups.length>0)
+        for(ViewGroup group: scrollableGroups){
+            group.requestDisallowInterceptTouchEvent(true);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if(scrollableGroups!=null && scrollableGroups.length>0)
+            for(ViewGroup group: scrollableGroups){
+                group.requestDisallowInterceptTouchEvent(true);
+            }
+        return super.onInterceptTouchEvent(ev);
+    }
+    @Override
+    public boolean onTouchEvent(@NonNull MotionEvent event) {
+        if(scrollableGroups!=null && scrollableGroups.length>0)
+            for(ViewGroup group: scrollableGroups){
+                group.requestDisallowInterceptTouchEvent(true);
+            }
+        return super.onTouchEvent(event);
+    }
 
 }

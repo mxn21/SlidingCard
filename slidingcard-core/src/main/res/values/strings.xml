@@ -3,4 +3,20 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="title">
+        <item>当红小花旦越来越惊艳了</item>
+        <item>早秋长袖连衣裙刮起了唯美浪漫风</item>
+        <item>高品质裙装美照让你一次看过瘾</item>
+        <item>蕾丝防晒衫棒球服外套</item>
+        <item>纯色开衫薄款外套防嗮衫</item>
+    </string-array>
+
+    <string-array name="imgs">
+        <item>img1</item>
+        <item>img2</item>
+        <item>img3</item>
+        <item>img4</item>
+        <item>img5</item>
+    </string-array>
 </resources>

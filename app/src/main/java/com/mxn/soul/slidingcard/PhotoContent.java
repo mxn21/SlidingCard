@@ -36,4 +36,10 @@ public class PhotoContent {
 
     public PhotoContent() {
     }
+
+    public PhotoContent(String id, String title, String url) {
+        this.id = id;
+        this.title = title;
+        this.url = url;
+    }
 }
