@@ -172,7 +172,7 @@ example: initCardView(ContainerInterface mContainerInterface,int layoutId,int ro
 it's easy to set new ArrayList() to store the data , but make sure the list's size is more
 than 3 .
 
-if you put it in scrollable viewgroup like listview ,viewpager etc..,drag will not work Normally,
+if you put it in scrollable viewgroup like listview ,viewpager etc..,drag will not work normally,
 I provide a method to avoid scroll conflict:
 
     public void setScrollableGroups(ViewGroup...args)
