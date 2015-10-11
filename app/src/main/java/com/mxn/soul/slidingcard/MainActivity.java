@@ -26,10 +26,14 @@ public class MainActivity extends AppCompatActivity implements ContainerView.Con
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         contentView = (ContainerView) findViewById(R.id.contentview);
-        initData() ;
+        try {
+            initData() ;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void initData(){
+    private void initData() throws Exception {
         dataList = new ArrayList<>();
         String[] titles = getResources().getStringArray(R.array.title) ;
         String[] imgs = getResources().getStringArray(R.array.imgs) ;
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements ContainerView.Con
             PhotoContent photoContent = new PhotoContent(String.valueOf(n),titles[n],imgs[n]) ;
             dataList.add(photoContent) ;
         }
+        if(dataList == null || dataList.size()<3)
+            throw new Exception("list'size must be more than 3") ;
+
         contentView.initCardView(MainActivity.this,R.layout.sliding_card_item,R.id
                 .sliding_card_content_view);
     }
