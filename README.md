@@ -11,6 +11,7 @@ Include the following dependency in your build.gradle file.
 
 Gradle:
 
+```Gradle
     repositories {
         jcenter()
     }
@@ -18,7 +19,7 @@ Gradle:
     dependencies {
         compile 'com.mxn.soul:slidingcard-core:1.3.0'
     }
-
+```
 
 
 # Usage
@@ -30,6 +31,7 @@ Gradle:
 
 activity_main.xml:
 
+```xml
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tools="http://schemas.android.com/tools"
                     xmlns:card="http://schemas.android.com/apk/res-auto"
@@ -51,6 +53,8 @@ activity_main.xml:
 
     </RelativeLayout>
 
+```
+
 *card_item_height* need to be bigger than the height of your photo or any view you create for
 each item .
 
@@ -62,6 +66,7 @@ set *card_item_margin*
 
 sliding_card_item.xml
 
+```xml
     <?xml version="1.0" encoding="utf-8"?>
     <RelativeLayout
          android:id="@+id/sliding_card_content_view"
@@ -94,11 +99,12 @@ sliding_card_item.xml
             android:textColor="#ffffff"
             android:textSize="14sp"/>
     </RelativeLayout>
-
+```
 
 3.implements ContainerView.ContainerInterface  and  override  initCard(),exChangeCard()
 
 
+```java
     public class MainActivity extends ActionBarActivity implements ContainerView.ContainerInterface {
 
 
@@ -165,6 +171,7 @@ sliding_card_item.xml
             return r_id;
         }
     }
+```
 
 contentView.initCardView() need to set you own layout's name ,and the root's id .
 example: initCardView(ContainerInterface mContainerInterface,int layoutId,int rootId).
@@ -175,15 +182,18 @@ than 3 .
 if you put it in scrollable viewgroup like listview ,viewpager etc..,drag will not work normally,
 I provide a method to avoid scroll conflict:
 
+```java
     public void setScrollableGroups(ViewGroup...args)
+```
 
 do this after contentView's Initialization:
 
+```java
     contentView = (ContainerView) view.findViewById(R.id.contentview);
     contentView.setScrollableGroups(viewPager, listview) ;
     contentView.initCardView(MyFragment.this, R.layout.sliding_card_item, R.id
                 .sliding_card_content_view);
-
+```
 
 # TODO
 
