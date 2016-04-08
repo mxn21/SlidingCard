@@ -17,7 +17,7 @@ before_install:
  - chmod +x gradlew
 
 script:
-  - ./gradlew assembleRelease
+   - chmod +x ./gradlew
 
 before_deploy:
   - mv app/build/outputs/apk/app-release.apk app/build/outputs/apk/SlidingCard.apk
