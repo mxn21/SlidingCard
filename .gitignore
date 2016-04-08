@@ -30,3 +30,7 @@ proguard/
 # Log Files
 *.log
 .gradle
+
+# Gradle files
+.gradle/
+
