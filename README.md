@@ -20,7 +20,7 @@ Gradle:
     }
 
     dependencies {
-        compile 'com.mxn.soul:slidingcard-core:1.3.0'
+        compile 'com.mxn.soul:slidingcard-core:1.3.1'
     }
 ```
 
