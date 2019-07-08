@@ -3,7 +3,7 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SlidingCard-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2355)
 [![travis-ic](https://travis-ci.org/mxn21/SlidingCard.svg?branch=master)](https://travis-ci.org/mxn21/SlidingCard)
 
-![Showcase](http://baobaoloveyou.com/slidingcard.gif)
+![Showcase](/screen.gif)
 
 Sliding cards with pretty gallery effects.
 
